@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import '../style/home.css';
 import Button from '@mui/material/Button';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { Modal, Box } from '@mui/material';
+import { Modal, Box, Snackbar, Alert } from '@mui/material';
 import salat_home from '../img/salat_home.png';
 import about from '../img/about.jpg';
 import plate1 from '../img/plate1.png';
@@ -92,13 +92,17 @@ const Home: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderCount, setOrderCount] = useState(0);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   const addToCart = (item: Item) => {
     dispatch({ type: 'ADD_TO_CART', payload: item });
   };
 
   const placeOrder = () => {
-    if (cart.length === 0) return;
+    if (cart.length === 0) {
+      setMessage('Your cart is empty.');
+      return;
+    }
 
     const orderNumber = orderCount + 1;
     const currentTime = new Date().toLocaleString();
@@ -114,6 +118,7 @@ const Home: React.FC = () => {
     setOrderCount(orderNumber);
     dispatch({ type: 'CLEAR_CART' });
     setIsCartModalOpen(false); // Close the modal after placing the order
+    setMessage('Order placed successfully!');
   };
 
   const toggleCartModal = () => {
@@ -126,6 +131,8 @@ const Home: React.FC = () => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
+    maxHeight: '70vh', // Set a max height for the scrollbar
+    overflowY: 'auto', // Enable vertical scrolling
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -288,6 +295,17 @@ const Home: React.FC = () => {
           )}
         </tbody>
       </table>
+
+      {/* Message Box */}
+      <Snackbar
+        open={Boolean(message)}
+        autoHideDuration={6000}
+        onClose={() => setMessage(null)}
+      >
+        <Alert onClose={() => setMessage(null)} severity="info">
+          {message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
