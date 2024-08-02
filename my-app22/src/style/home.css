@@ -301,13 +301,13 @@ table {
   
   /* Style for table headers */
   thead {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
+    background: linear-gradient(135deg, #44a61d,#22640d); /* Gradient background */
     color: #fff; /* White text color */
   }
   
   thead th {
     padding: 12px;
-    border-bottom: 2px solid #f76c6c; /* Light pink border */
+    border-bottom: 2px solid #78f76c; /* Light pink border */
     text-align: left;
     font-weight: bold;
   }
@@ -322,14 +322,14 @@ table {
   }
   
   tbody tr:hover {
-    background-color: #f1c40f; /* Bright yellow on hover */
-    color: #fff; /* White text color on hover */
+    background-color: #ddd3d3a6; /* Bright yellow on hover */
+    color: #0b0a0a; /* White text color on hover */
   }
   
   tbody td {
     padding: 12px;
-    border-bottom: 1px solid #ddd; /* Light grey border below each cell */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    border-bottom: 1px solid #fff9f9; /* Light grey border below each cell */
+    transition: background-color 0.3s, color 0.7s; /* Smooth transition */
   }
   
   /* Optional: Style for table cells */
@@ -337,3 +337,49 @@ table {
     border-radius: 4px; /* Rounded corners for cells */
   }
   
+
+
+
+  /* Order History Section */
+#order-history {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-family: 'Arial', sans-serif;
+}
+
+#order-history h2 {
+    font-size: 2rem;
+    color: #26cc00; /* Green color for the heading */
+    margin-bottom: 20px;
+}
+
+#order-history h3 {
+    font-size: 1.5rem;
+    color: #333; /* Darker text color for subheadings */
+    margin: 10px 0;
+}
+
+#order-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+#order-history li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd; /* Light grey border */
+    font-size: 1rem;
+    color: #333; /* Dark text color */
+}
+
+#order-history li:last-child {
+    border-bottom: none; /* Remove border from last item */
+}
+
+#order-history p {
+    font-size: 1.2rem;
+    color: #333; /* Darker text color */
+    margin: 10px 0;
+}

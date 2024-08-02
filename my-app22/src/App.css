@@ -12,13 +12,14 @@ html, body {
 }
 
 /* Navbar Styling */
+
 .App-bar {
   background-color: #333;
   color: white;
   padding: 10px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start; /* Align items to the start (left) */
   position: fixed;
   width: 100%;
   top: 0;
@@ -28,6 +29,7 @@ html, body {
 .App-bar img {
   height: 40px;
   width: auto;
+  margin-right: 20px; /* Space between image and text */
 }
 
 .App-bar .links {
@@ -45,6 +47,7 @@ html, body {
 .App-bar .links a:hover {
   text-decoration: underline;
 }
+
 
 /* Main Content Area */
 .content {

@@ -19,7 +19,7 @@ const App: React.FC = () => {
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {/* Navbar */}
       {!isAuthPage && (
-        <AppBar className='App-bar'>
+        <AppBar style={{backgroundColor:'green'}} className='App-bar'>
           <Toolbar>
             <img src={health2} alt="Health Logo" />
             <div className='links'>
@@ -42,7 +42,7 @@ const App: React.FC = () => {
 
       {/* Footer */}
       {!isAuthPage && (
-        <footer className="footer">
+        <footer style={{backgroundColor:'green'}} className="footer">
           <div className="footer-container">
             <p>&copy; 2024 Your Company. All rights reserved.</p>
             <div className="footer-links">

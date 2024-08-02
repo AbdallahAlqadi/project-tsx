@@ -38,6 +38,28 @@ type ActionType =
 
 const initialState: Item[] = [];
 
+const CartItem: React.FC<{ item: Item; onRemove: () => void; onQuantityChange: (quantity: number) => void }> = ({ item, onRemove, onQuantityChange }) => {
+    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newQuantity = parseInt(e.target.value, 10);
+      if (newQuantity >= 0) {
+        onQuantityChange(newQuantity);
+      }
+    };
+  
+    return (
+      <div>
+        <span>{item.name} - {item.price} - Quantity: </span>
+        <input 
+          type="number" 
+          value={item.quantity || 1} 
+          onChange={handleQuantityChange} 
+          min="1"
+        />
+        <Button onClick={onRemove} style={{ color: 'red' }}>Remove</Button>
+      </div>
+    );
+  };
+
 function reducer(state: Item[], action: ActionType): Item[] {
   switch (action.type) {
     case 'ADD_TO_CART':
@@ -191,20 +213,39 @@ const Home: React.FC = () => {
         aria-describedby="cart-modal-description"
       >
         <Box sx={cartModalStyle}>
-          <h2 id="cart-modal-title">Shopping Cart</h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 id="cart-modal-title">Shopping Cart</h2>
+            <Button 
+              onClick={toggleCartModal} 
+              style={{ color: 'red' }} 
+              variant="text"
+            >
+              Close
+            </Button>
+          </div>
           <div id="cart-modal-description">
             {cart.length === 0 ? (
               <p>Your cart is empty.</p>
             ) : (
-              <ul>
-                {cart.map((item, index) => (
-                  <li key={index}>
-                    {item.name} - {item.price} - Quantity: {item.quantity}
-                  </li>
-                ))}
-              </ul>
+              cart.map((item, index) => (
+                <CartItem
+                  key={index}
+                  item={item}
+                  onRemove={() => dispatch({ type: 'REMOVE_FROM_CART', payload: index })}
+                  onQuantityChange={(quantity) => dispatch({ type: 'ADD_TO_CART', payload: { ...item, quantity } })}
+                />
+              ))
             )}
-            <Button onClick={placeOrder} style={{ backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'large' }} variant="contained">Place Order</Button>
+            <Button
+              onClick={() => {
+                placeOrder();
+                toggleCartModal(); // Close the modal after placing the order
+              }}
+              style={{ backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'large' }}
+              variant="contained"
+            >
+              Place Order
+            </Button>
           </div>
         </Box>
       </Modal>
@@ -215,25 +256,38 @@ const Home: React.FC = () => {
 
       {/* Order History */}
       <h2>Order History</h2>
-      <div id="order-history">
-        {orders.length === 0 ? (
-          <p>No orders placed yet.</p>
-        ) : (
-          orders.map(order => (
-            <div key={order.orderNumber}>
-              <h3>Order #{order.orderNumber} - {order.orderTime}</h3>
-              <ul>
-                {order.items.map((item, index) => (
-                  <li key={index}>
-                    {item.name} - {item.price} - Quantity: {item.quantity}
-                  </li>
-                ))}
-              </ul>
-              <p>Total Amount: {order.totalAmount.toFixed(2)} JD</p>
-            </div>
-          ))
-        )}
-      </div>
+      <table id="order-history-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th>Order Number</th>
+            <th>Order Time</th>
+            <th>Items</th>
+            <th>Total Amount (JD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.length === 0 ? (
+            <tr>
+              <td colSpan={4}>No orders placed yet.</td>
+            </tr>
+          ) : (
+            orders.map(order => (
+              <tr key={order.orderNumber}>
+                <td>{order.orderNumber}</td>
+                <td>{order.orderTime}</td>
+                <td>
+                  <ul>
+                    {order.items.map((item, index) => (
+                      <li key={index}>{item.name} - {item.price} - Quantity: {item.quantity}</li>
+                    ))}
+                  </ul>
+                </td>
+                <td>{order.totalAmount.toFixed(2)}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
