@@ -11,12 +11,16 @@ import plate3 from '../img/plate3.png';
 import plate4 from '../img/plate4.jpg';
 import plate5 from '../img/plate5.jpg';
 import plate6 from '../img/plate6.jpg';
+import plate7 from '../img/plate7.jpg';
+import plate8 from '../img/plate8.jpg';
 import z1 from '../img/z1.jpeg';
 import z2 from '../img/z2.jpeg';
 import z3 from '../img/z3.jpeg';
 import z4 from '../img/z4.jpeg';
 import z5 from '../img/z5.jpeg';
 import z8 from '../img/z8.jpeg';
+import z7 from '../img/z7.jpeg';
+import z9 from '../img/z9.jpeg';
 
 interface Item {
   name: string;
@@ -176,8 +180,9 @@ const Home: React.FC = () => {
           { id: 'plate4', name: 'Salmon salad', price: '5.00JD', src: plate4 },
           { id: 'plate5', name: 'Pasta', price: '3.00JD', src: plate5 },
           { id: 'plate6', name: 'Grilled chicken', price: '4.00JD', src: plate6 },
-          { id: 'plate6', name: 'Grilled chicken', price: '4.00JD', src: plate6 },
-          { id: 'plate6', name: 'Grilled chicken', price: '4.00JD', src: plate6 }
+          { id: 'plate7', name: 'Pancakes', price: '3.00JD', src: plate7 },
+            { id: 'plate8', name: 'Fruit Salad', price: '5.00JD', src: plate8 }
+
         ].map((item, index) => (
           <div id='card' key={index}>
             <img id='imgcard' src={item.src} alt={item.name} />
@@ -200,8 +205,8 @@ const Home: React.FC = () => {
           { id: 'z4', name: 'Pineapple Juice', price: '5.00JD', src: z4 },
           { id: 'z5', name: 'Lemon Juice', price: '1.75JD', src: z5 },
           { id: 'z8', name: 'Cocktail Juice', price: '2.75JD', src: z8 },
-          { id: 'z8', name: 'Cocktail Juice', price: '2.75JD', src: z8 },
-          { id: 'z8', name: 'Cocktail Juice', price: '2.75JD', src: z8 }
+          { id: 'z7', name: 'Guava Juice', price: '2.75JD', src: z7 },
+          { id: 'z9', name: 'Avocado Juice', price: '2.75JD', src: z9 }
         ].map((item, index) => (
           <div id='card' key={index}>
             <img id='imgcard2' src={item.src} alt={item.name} />

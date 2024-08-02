@@ -127,13 +127,12 @@
 }
 
 #imgcard2 {
-    width: 280px;
-    height: 267px;
-    border-bottom: 1px solid #ddd;
-    border: none;
-    margin-left: 17px;
-    margin-top: 5px;
-    border-radius: 160px;
+    width: 277px;
+    height: 266px;
+     border-bottom: 1px solid #ddd;
+ border-radius: 190px;
+     margin-left: 19px;
+     margin-top: 6px;
 }
 
 /* Container Styles */
