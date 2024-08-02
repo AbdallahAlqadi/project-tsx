@@ -255,7 +255,7 @@ const Home: React.FC = () => {
       </Button>
 
       {/* Order History */}
-      <h2>Order History</h2>
+      <h2 id="a">Order History</h2>
       <table id="order-history-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
