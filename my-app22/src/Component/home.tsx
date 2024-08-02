@@ -250,13 +250,13 @@ const Home: React.FC = () => {
         </Box>
       </Modal>
 
-      <Button onClick={toggleCartModal} style={{ backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'large', position: 'fixed', bottom: '20px', right: '20px' }} variant="contained" startIcon={<LocalMallIcon />}>
+      <Button onClick={toggleCartModal} style={{ backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'larger', position: 'fixed', bottom: '20px', right: '20px' }} variant="contained" startIcon={<LocalMallIcon />}>
         View Cart
       </Button>
 
       {/* Order History */}
       <h2 id="a">Order History</h2>
-      <table id="order-history-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <table className="table" id="order-history-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
             <th>Order Number</th>
