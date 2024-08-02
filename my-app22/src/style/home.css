@@ -100,12 +100,13 @@
 }
 
 #imgcard {
-    width: 300px;
-    height: 260px;
+    width: 275px;
+    height: 265px;
     border-bottom: 1px solid #ddd;
     border: none;
-    margin-left: 8px;
+    margin-left: 18px;
     margin-top: 5px;
+    border-radius: 190px;
 }
 
 #textcard1 {
