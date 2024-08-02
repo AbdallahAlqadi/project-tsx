@@ -1,7 +1,7 @@
 
 /* part1 */
 .grid1{
-    margin-top: 165px;
+    margin-top: 115px;
     color: black;
     display: grid;
     grid-template-columns: auto auto;
@@ -17,7 +17,7 @@ height: 55px;
 
 #imgsec2{
     margin-top: 25px;
-    width: 620px;
+    width: 650px;
     height: 630px;
     margin-left: -55px
 }
