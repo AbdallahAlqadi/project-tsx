@@ -298,14 +298,15 @@ const Home: React.FC = () => {
 
       {/* Message Box */}
       <Snackbar
-        open={Boolean(message)}
-        autoHideDuration={6000}
-        onClose={() => setMessage(null)}
-      >
-        <Alert onClose={() => setMessage(null)} severity="info">
-          {message}
-        </Alert>
-      </Snackbar>
+  open={Boolean(message)}
+  autoHideDuration={6000}
+  onClose={() => setMessage(null)}
+>
+  <Alert onClose={() => setMessage(null)} severity="info" variant="filled">
+    {message}
+  </Alert>
+</Snackbar>
+
     </div>
   );
 };
