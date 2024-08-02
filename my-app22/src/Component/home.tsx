@@ -1,5 +1,7 @@
 import React, { useReducer, useState } from "react";
 import '../style/home.css';
+import Badge from '@mui/material/Badge';
+
 import Button from '@mui/material/Button';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { Modal, Box, Snackbar, Alert } from '@mui/material';
@@ -237,7 +239,7 @@ const Home: React.FC = () => {
           </div>
           <div id="cart-modal-description">
             {cart.length === 0 ? (
-              <p>Your cart is empty.</p>
+              <p style={{color:'black'}}>Your cart is empty.</p>
             ) : (
               cart.map((item, index) => (
                 <CartItem
