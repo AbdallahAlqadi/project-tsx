@@ -372,45 +372,51 @@ table {
 }
 
 /* Message Box Styles */
+/* Basic styles for the message box */
 .MuiSnackbar-root {
     bottom: 20px;
     right: 20px;
 }
 
 .MuiAlert-root {
-    background-color: #f4f4f4;
-    color: #333;
-    border-radius: 8px;
+    background-color: #ffffff; /* Updated background color */
+    color: #333333; /* Updated text color for better readability */
+    border-radius: 10px; /* Slightly rounded corners */
     padding: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Softer shadow */
     font-size: 16px;
     font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center; /* Center align content */
 }
 
+/* Different types of alerts */
 .MuiAlert-info {
-    border-left: 5px solid #2196f3;
+    border-left: 5px solid #2196f3; /* Blue for info */
 }
 
 .MuiAlert-error {
-    border-left: 5px solid #f44336;
+    border-left: 5px solid #f44336; /* Red for error */
 }
 
 .MuiAlert-warning {
-    border-left: 5px solid #ff9800;
+    border-left: 5px solid #ff9800; /* Orange for warning */
 }
 
 .MuiAlert-success {
-    border-left: 5px solid #4caf50;
+    border-left: 5px solid #4caf50; /* Green for success */
 }
 
+/* Action button inside the alert */
 .MuiAlert-action {
     margin-left: 16px;
 }
 
+/* Button styles */
 .MuiButton-root {
-    color: #2196f3;
+    color: #2196f3; /* Match button color with alert color */
 }
 
 .MuiButton-root:hover {
-    background-color: rgba(33, 150, 243, 0.1);
+    background-color: rgba(33, 150, 243, 0.1); /* Light background on hover */
 }
