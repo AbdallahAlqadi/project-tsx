@@ -220,7 +220,7 @@ const Home: React.FC = () => {
         aria-describedby="cart-modal-description"
       >
         <Box sx={cartModalStyle}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{Color:'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 id="cart-modal-title">Shopping Cart</h2>
             <Button 
               onClick={toggleCartModal} 
