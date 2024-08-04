@@ -1,10 +1,8 @@
 import React, { useReducer, useState } from "react";
 import '../style/home.css';
-import Badge from '@mui/material/Badge';
-
 import Button from '@mui/material/Button';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { Modal, Box, Snackbar, Alert } from '@mui/material';
+import { Modal, Box, Snackbar, Alert, TextField } from '@mui/material';
 import salat_home from '../img/salat_home.png';
 import about from '../img/about.jpg';
 import plate1 from '../img/plate1.png';
@@ -40,27 +38,18 @@ interface Order {
 type ActionType = 
   | { type: 'ADD_TO_CART'; payload: Item }
   | { type: 'REMOVE_FROM_CART'; payload: number }
+  | { type: 'UPDATE_QUANTITY'; payload: { index: number; quantity: number } }
   | { type: 'CLEAR_CART' };
 
 const initialState: Item[] = [];
 
-const CartItem: React.FC<{ item: Item; onRemove: () => void; onQuantityChange: (quantity: number) => void }> = ({ item, onRemove, onQuantityChange }) => {
-    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newQuantity = parseInt(e.target.value, 10);
-      if (newQuantity >= 0) {
-        onQuantityChange(newQuantity);
-      }
-    };
-  
+const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => void; onDecrease: () => void }> = ({ item, onRemove, onIncrease, onDecrease }) => {
     return (
       <div>
         <span>{item.name} - {item.price} - Quantity: </span>
-        <input 
-          type="number" 
-          value={item.quantity || 1} 
-          onChange={handleQuantityChange} 
-          min="1"
-        />
+        <Button onClick={onDecrease} style={{ color: 'orange' }}>-</Button>
+        <span>{item.quantity || 1}</span>
+        <Button onClick={onIncrease} style={{ color: 'orange' }}>+</Button>
         <Button onClick={onRemove} style={{ color: 'red' }}>Remove</Button>
       </div>
     );
@@ -79,6 +68,10 @@ function reducer(state: Item[], action: ActionType): Item[] {
       }
     case 'REMOVE_FROM_CART':
       return state.filter((_, index) => index !== action.payload);
+    case 'UPDATE_QUANTITY':
+      return state.map((item, index) =>
+        index === action.payload.index ? { ...item, quantity: action.payload.quantity } : item
+      );
     case 'CLEAR_CART':
       return [];
     default:
@@ -99,9 +92,15 @@ const Home: React.FC = () => {
   const [orderCount, setOrderCount] = useState(0);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [discountCode, setDiscountCode] = useState('');
+  const [discountAmount, setDiscountAmount] = useState(0);
 
   const addToCart = (item: Item) => {
     dispatch({ type: 'ADD_TO_CART', payload: item });
+  };
+
+  const updateQuantity = (index: number, quantity: number) => {
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { index, quantity } });
   };
 
   const placeOrder = () => {
@@ -109,22 +108,27 @@ const Home: React.FC = () => {
       setMessage('Your cart is empty.');
       return;
     }
-
+  
     const orderNumber = orderCount + 1;
     const currentTime = new Date().toLocaleString();
-
+    const totalAmount = cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0);
+    const finalAmount = totalAmount - discountAmount;
+  
+    // Ensure finalAmount is not negative
+    const adjustedFinalAmount = Math.max(finalAmount, 0);
+  
     const aggregatedOrder: Order = {
       orderNumber,
       orderTime: currentTime,
       items: [...cart],
-      totalAmount: cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0)
+      totalAmount: adjustedFinalAmount
     };
-
+  
     setOrders(prevOrders => [...prevOrders, aggregatedOrder]);
     setOrderCount(orderNumber);
     dispatch({ type: 'CLEAR_CART' });
     setIsCartModalOpen(false); // Close the modal after placing the order
-    setMessage('Order placed successfully!');
+    setMessage(`Order placed successfully! Final amount after discount: ${adjustedFinalAmount.toFixed(2)} JD`);
   };
 
   const toggleCartModal = () => {
@@ -183,8 +187,7 @@ const Home: React.FC = () => {
           { id: 'plate5', name: 'Pasta', price: '3.00JD', src: plate5 },
           { id: 'plate6', name: 'Grilled chicken', price: '4.00JD', src: plate6 },
           { id: 'plate7', name: 'Pancakes', price: '3.00JD', src: plate7 },
-            { id: 'plate8', name: 'Fruit Salad', price: '5.00JD', src: plate8 }
-
+          { id: 'plate8', name: 'Fruit Salad', price: '5.00JD', src: plate8 }
         ].map((item, index) => (
           <div id='card' key={index}>
             <img id='imgcard' src={item.src} alt={item.name} />
@@ -246,10 +249,38 @@ const Home: React.FC = () => {
                   key={index}
                   item={item}
                   onRemove={() => dispatch({ type: 'REMOVE_FROM_CART', payload: index })}
-                  onQuantityChange={(quantity) => dispatch({ type: 'ADD_TO_CART', payload: { ...item, quantity } })}
+                  onIncrease={() => updateQuantity(index, (item.quantity ?? 1) + 1)}
+                  onDecrease={() => updateQuantity(index, Math.max((item.quantity ?? 1) - 1, 1))}
                 />
               ))
             )}
+            <TextField
+              label="Discount Code"
+              variant="outlined"
+              value={discountCode}
+              onChange={(e) => setDiscountCode(e.target.value)}
+              style={{ marginBottom: '16px' }}
+            />
+            <Button
+              onClick={() => {
+                if (discountCode === '1234') {
+                  setDiscountAmount(10); // Apply a fixed discount of 10 JD
+                  setMessage('Discount code applied successfully!');
+                } else {
+                  setDiscountAmount(0);
+                  setMessage('Invalid discount code.');
+                }
+              }}
+              style={{ marginBottom: '16px', backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'large' }}
+              variant="contained"
+            >
+              Apply Discount
+            </Button>
+            <div>
+              <h3>Total Amount: {cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0).toFixed(2)} JD</h3>
+              <h3>Discount Amount: {discountAmount.toFixed(2)} JD</h3>
+              <h3>Final Amount: {(cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0) - discountAmount).toFixed(2)} JD</h3>
+            </div>
             <Button
               onClick={() => {
                 placeOrder();
@@ -305,14 +336,14 @@ const Home: React.FC = () => {
 
       {/* Message Box */}
       <Snackbar
-  open={Boolean(message)}
-  autoHideDuration={6000}
-  onClose={() => setMessage(null)}
->
-  <Alert onClose={() => setMessage(null)} severity="info" variant="filled">
-    {message}
-  </Alert>
-</Snackbar>
+        open={Boolean(message)}
+        autoHideDuration={6000}
+        onClose={() => setMessage(null)}
+      >
+        <Alert onClose={() => setMessage(null)} severity="info" variant="filled">
+          {message}
+        </Alert>
+      </Snackbar>
 
     </div>
   );
