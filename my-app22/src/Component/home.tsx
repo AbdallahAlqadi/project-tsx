@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import '../style/home.css';
 import Button from '@mui/material/Button';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { Modal, Box, Snackbar, Alert, TextField } from '@mui/material';
+import { Modal,Badge,Box, Snackbar, Alert, TextField } from '@mui/material';
 import salat_home from '../img/salat_home.png';
 import about from '../img/about.jpg';
 import plate1 from '../img/plate1.png';
@@ -140,7 +140,7 @@ const Home: React.FC = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 530,
     maxHeight: '70vh', // Set a max height for the scrollbar
     overflowY: 'auto', // Enable vertical scrolling
     bgcolor: 'background.paper',
@@ -224,84 +224,113 @@ const Home: React.FC = () => {
 
       {/* Modal for Shopping Cart */}
       <Modal
-        open={isCartModalOpen}
-        onClose={toggleCartModal}
-        aria-labelledby="cart-modal-title"
-        aria-describedby="cart-modal-description"
+  open={isCartModalOpen}
+  onClose={toggleCartModal}
+  aria-labelledby="cart-modal-title"
+  aria-describedby="cart-modal-description"
+>
+  <Box sx={cartModalStyle}>
+    <div style={{ color: 'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px' }}>
+      <h2 id="cart-modal-title">Shopping Cart</h2>
+      <Button 
+        onClick={toggleCartModal} 
+        style={{ color: '#ff4d4d', fontWeight: 'bold' }} 
+        variant="text"
       >
-        <Box sx={cartModalStyle}>
-          <div style={{color:'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 id="cart-modal-title">Shopping Cart</h2>
-            <Button 
-              onClick={toggleCartModal} 
-              style={{ color: 'red' }} 
-              variant="text"
-            >
-              Close
-            </Button>
-          </div>
-          <div id="cart-modal-description">
-            {cart.length === 0 ? (
-              <p style={{color:'black'}}>Your cart is empty.</p>
-            ) : (
-              cart.map((item, index) => (
-                <CartItem
-                  key={index}
-                  item={item}
-                  onRemove={() => dispatch({ type: 'REMOVE_FROM_CART', payload: index })}
-                  onIncrease={() => updateQuantity(index, (item.quantity ?? 1) + 1)}
-                  onDecrease={() => updateQuantity(index, Math.max((item.quantity ?? 1) - 1, 1))}
-                />
-              ))
-            )}
-            <TextField
-              label="Discount Code"
-              variant="outlined"
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value)}
-              style={{ marginBottom: '16px' }}
-            />
-            <Button
-              onClick={() => {
-                if (discountCode === '1234') {
-                  setDiscountAmount(10); // Apply a fixed discount of 10 JD
-                  setMessage('Discount code applied successfully!');
-                } else {
-                  setDiscountAmount(0);
-                  setMessage('Invalid discount code.');
-                }
-              }}
-              style={{ marginBottom: '16px', backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'large' }}
-              variant="contained"
-            >
-              Apply Discount
-            </Button>
-            <div>
-              <h3>Total Amount: {cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0).toFixed(2)} JD</h3>
-              <h3>Discount Amount: {discountAmount.toFixed(2)} JD</h3>
-              <h3>Final Amount: {(cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0) - discountAmount).toFixed(2)} JD</h3>
-            </div>
-            <Button
-              onClick={() => {
-                placeOrder();
-                toggleCartModal(); // Close the modal after placing the order
-              }}
-              style={{ backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'large' }}
-              variant="contained"
-            >
-              Place Order
-            </Button>
-          </div>
-        </Box>
-      </Modal>
-
-      <Button onClick={toggleCartModal} style={{ backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'larger', position: 'fixed', bottom: '20px', right: '20px' }} variant="contained" startIcon={<LocalMallIcon />}>
-        View Cart
+        Close
       </Button>
+    </div>
+    <div id="cart-modal-description" style={{ padding: '16px' }}>
+      {cart.length === 0 ? (
+        <p style={{ color: '#555', textAlign: 'center' }}>Your cart is empty.</p>
+      ) : (
+        cart.map((item, index) => (
+          <CartItem
+            key={index}
+            item={item}
+            onRemove={() => dispatch({ type: 'REMOVE_FROM_CART', payload: index })}
+            onIncrease={() => updateQuantity(index, (item.quantity ?? 1) + 1)}
+            onDecrease={() => updateQuantity(index, Math.max((item.quantity ?? 1) - 1, 1))}
+          />
+        ))
+      )}
+      <TextField
+        label="Discount Code"
+        variant="outlined"
+        value={discountCode}
+        onChange={(e) => setDiscountCode(e.target.value)}
+        style={{ marginBottom: '16px', width: '100%' }}
+      />
+      <Button
+        onClick={() => {
+          if (discountCode === '1234') {
+            setDiscountAmount(10); // Apply a fixed discount of 10 JD
+            setMessage('Discount code applied successfully!');
+          } else {
+            setDiscountAmount(0);
+            setMessage('Invalid discount code.');
+          }
+        }}
+        style={{ marginBottom: '16px', backgroundColor: '#28a745', color: '#fff', borderRadius: '18px', fontSize: 'large' }}
+        variant="contained"
+      >
+        Apply Discount
+      </Button>
+      <div style={{ marginBottom: '16px' }}>
+        <h3>Total Amount: {cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0).toFixed(2)} JD</h3>
+        <h3>Discount Amount: {discountAmount.toFixed(2)} JD</h3>
+        <h3>Final Amount: {(cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0) - discountAmount).toFixed(2)} JD</h3>
+      </div>
+      <Button
+        onClick={() => {
+          placeOrder();
+          toggleCartModal(); // Close the modal after placing the order
+        }}
+        style={{ backgroundColor: '#28a745', color: '#fff', borderRadius: '18px', fontSize: 'large' }}
+        variant="contained"
+      >
+        Place Order
+      </Button>
+      {message && (
+        <div style={{ marginTop: '16px', color: discountAmount > 0 ? '#28a745' : '#ff4d4d', fontWeight: 'bold' }}>
+          {message}
+        </div>
+      )}
+    </div>
+  </Box>
+</Modal>
+
+     {/* icon shop */}
+<Button 
+  onClick={toggleCartModal} 
+  style={{ 
+    backgroundColor: '#28a745', // Green color to match the "cart" theme
+    color: '#fff', // White text for contrast
+    borderRadius: '50px', // Rounded shape
+    fontSize: '1.2rem', // Larger font size
+    position: 'fixed', 
+    bottom: '20px', 
+    right: '20px', 
+    padding: '12px 24px', // Padding for a more prominent button
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
+    transition: 'background-color 0.3s ease, transform 0.3s ease', // Smooth transition
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }} 
+  variant="contained" 
+  startIcon={
+    <Badge badgeContent={cart.length} color="secondary">
+      <LocalMallIcon />
+    </Badge>
+  }
+>
+  View Cart
+</Button>
 
       {/* Order History */}
       <h2 id="a">Order History</h2>
-      <table className="table" id="order-history-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <table className="table" id="order-history-table" style={{ width: '90%', borderCollapse: 'collapse',marginLeft:'70px' }}>
         <thead>
           <tr>
             <th>Order Number</th>
