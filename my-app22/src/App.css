@@ -1,83 +1,85 @@
-/* App Container */
+/* Ensure the html and body take full height */
 html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Corrected background color syntax */
 }
 
+/* Ensure the root div (where your React app is mounted) also takes full height */
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
 }
 
-/* Navbar Styling */
-
-.App-bar {
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
+/* Style for the AppBar */
+/* AppBar Styles */
+/* AppBar Styles */
+.appbar {
+  height: 110px;
   display: flex;
-  align-items:first baseline;
-  justify-content: flex-start; /* Align items to the start (left) */
-  position: fixed;
+  align-items: center;
+  padding: 0 20px; /* Adjust the padding as needed */
+  box-shadow: none; /* Remove default shadow if not needed */
+  background-color: #068306; /* Ensure background color is applied */
+}
+
+.appbar .toolbar {
+  display: flex;
+  align-items: center;
   width: 100%;
-  top: 0;
-  z-index: 1000;
-
 }
 
-.App-bar img {
-  height: 81px;
-  width: 83px;
-  margin-right: 20px; 
-  border-radius: 50px;/* Space between image and text */
+.appbar img {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #fffefe;
+  border-radius: 50px;
+  margin-right: 20px; /* Add spacing to the right of the image */
 }
 
-.App-bar .links {
+.appbar .links {
   display: flex;
-  gap: 15px;
+  align-items: center;
 }
 
-.App-bar .links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 22px;
-  margin-left: 20px;
+.appbar .links a {
+  color: white; /* Link color */
+  margin-left: 20px; /* Spacing between links */
+  text-decoration: none; /* Remove underline from links */
+  font-size: 18px; /* Adjust font size as needed */
+  font-weight: bold; /* Make the text bold */
 }
 
-.App-bar .links a:hover {
-  text-decoration: underline;
+.appbar .links a:hover {
+  color: #ff6f61; /* Change color on hover */
+  text-decoration: underline; /* Add underline on hover */
 }
 
 
-/* Main Content Area */
+
+/* Main content area */
 .content {
-  padding: 20px;
-  margin-top: 60px; /* Adjust based on navbar height */
-  flex: 1;
+  flex: 1; /* This makes sure the content area takes up available space */
 }
 
-/* Footer Styling */
-.footer {
-  background-color: #222;
-  color: white;
+/* Footer */
+footer {
+  background-color: #068306;
+  color: #ffffff;
   padding: 20px 0;
   text-align: center;
-  border-top: 1px solid #444;
-  margin-top: auto;
+  font-family: 'Roboto', sans-serif;
 }
 
 .footer-container {
+  width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer p {
-  margin: 0;
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-links {
@@ -85,11 +87,38 @@ html, body {
 }
 
 .footer-links a {
+  color: #ffffff;
   margin: 0 10px;
-  color: #61dafb;
   text-decoration: none;
+  transition: color 0.3s, text-decoration 0.3s;
 }
 
 .footer-links a:hover {
+  color: #ff6f61;
   text-decoration: underline;
+}
+
+/* Social Media Icons */
+.social-media {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.social-media a {
+  color: #fffafa;
+  margin: 0 10px;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+
+.social-media a:hover {
+  color: #ff6f61;
+}
+
+/* Footer Copyright */
+.footer-copyright {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
 }

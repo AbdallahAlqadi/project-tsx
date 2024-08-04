@@ -1,48 +1,103 @@
+.b{
+  background: url('https://as2.ftcdn.net/v2/jpg/01/05/58/97/1000_F_105589705_EICdYPuxaA1RODc4vSzZJldUXoGOZI2e.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
 .form-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    margin-top: 190px;
-    background-color: #cccccc3d;
-  }
-  
-  h2 {
-    color: #068306;
-    text-align: center;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .submit-button {
-    background-color: #068306;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .submit-button:hover {
-    background-color: #056a04;
-  }
-  
+  width: 600px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-top: 160px;
+  background-color: rgba(0, 0, 0, 0.473);
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.542);
+  transition: height 0.3s ease;
+  overflow: hidden; /* Ensure content does not overflow */
+}
+
+.form-container.expanded {
+  height: auto; /* Automatically adjust height */
+}
+
+#z {
+  color: #edf1ed;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+h2 {
+  color: #068306;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submit-button {
+  background-color: #068306;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background-color: #056a04;
+}
+
+.change-password-button {
+  background-color: #068306;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.change-password-button:hover {
+  background-color: #056a04;
+}
+
+.cancel-button {
+  background-color: #f03232;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.cancel-button:hover {
+  background-color: #f03232bb;
+}
+
+.change-password-form {
+  margin-top: 20px;
+}

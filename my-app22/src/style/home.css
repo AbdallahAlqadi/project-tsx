@@ -1,26 +1,62 @@
-
-
-/* part1 */
+/* Grid Layout */
 .grid1 {
-    margin-top: 115px;
+    margin-top: 165px;
     color: black;
     display: grid;
     grid-template-columns: auto auto;
     margin-left: -300px;
 }
 
+.grid2 {
+    margin-top: 150px;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-left: 210px;
+}
+
+/* Button Styles */
 .button1 {
     width: 180px;
     height: 55px;
 }
 
+.button_card {
+    background-color: white;
+}
+
+/* Image Sections */
 #imgsec2 {
     margin-top: 25px;
-    width: 650px;
+    width: 620px;
     height: 630px;
     margin-left: -55px;
 }
 
+#img3 {
+    width: 475px;
+    height: 450px;
+}
+
+#imgcard {
+    width: 277px;
+    height: 266px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 190px;
+    margin-left: 19px;
+    margin-top: 6px;
+}
+
+#imgcard2 {
+    width: 280px;
+    height: 267px;
+    border-bottom: 1px solid #ddd;
+    border: none;
+    margin-left: 17px;
+    margin-top: 5px;
+    border-radius: 160px;
+}
+
+/* Text Styles */
 #text1 {
     margin-top: 180px;
     font-size: xxx-large;
@@ -33,20 +69,6 @@
     margin-left: 520px;
 }
 
-/* part2 */
-
-.grid2 {
-    margin-top: 150px;
-    display: grid;
-    grid-template-columns: auto auto;
-    margin-left: 210px;
-}
-
-#img3 {
-    width: 475px;
-    height: 450px;
-}
-
 #text3 {
     font-size: xxx-large;
     color: #3DCE15;
@@ -55,13 +77,6 @@
 #text5 {
     font-weight: inherit;
 }
-
-.secssion4 {
-    margin-left: -140px;
-    margin-top: 30px;
-}
-
-/* part3 */
 
 #text6 {
     color: #3DCE15;
@@ -74,6 +89,21 @@
     text-align: center;
 }
 
+#textcard1 {
+    font-size: 27px;
+    margin-left: 10px;
+    color: #333;
+    margin-bottom: -20px;
+}
+
+#textcard2 {
+    font-size: 20px;
+    color: #0bb313;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Card Styles */
 .cards {
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -99,45 +129,6 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-
-
-#imgcard {
-    width: 275px;
-    height: 265px;
-    border-bottom: 1px solid #ddd;
-    border: none;
-    margin-left: 18px;
-    margin-top: 5px;
-    border-radius: 190px;
-}
-
-#textcard1 {
-    font-size: 27px;
-    margin-left: 10px;
-    color: #333;
-    margin-bottom: -20px;
-}
-
-#textcard2 {
-    font-size: 20px;
-    color: #0bb313;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.button_card {
-    background-color: white;
-}
-
-#imgcard2 {
-    width: 277px;
-    height: 266px;
-     border-bottom: 1px solid #ddd;
- border-radius: 190px;
-     margin-left: 19px;
-     margin-top: 6px;
-}
-
 /* Container Styles */
 .cart, .orders {
     background-color: #ffffff;
@@ -145,7 +136,7 @@
     box-shadow: 0 4px 8px rgba(1, 1, 1, 0.8);
     margin: 20px auto;
     padding: 20px;
-    max-width: 1420px;
+    max-width: 1400px;
 }
 
 /* Cart Styles */
@@ -199,24 +190,27 @@
 
 .orders tr:hover {
     background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
 }
 
 .orders tbody tr:last-child td {
     border-bottom: none;
 }
 
+@keyframes tableGlow {
+    0% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+    50% { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
+    100% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+}
+
 .orders table {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    overflow: hidden;
-    width: 1400px;
-    margin-left: 12px;
+    animation: tableGlow 3s infinite;
 }
 
 .orders h2 {
     margin-bottom: 30px;
     font-size: 2rem;
-    color: #ff6f61;
+    color: #089c3a;
     font-weight: 700;
 }
 
@@ -226,7 +220,7 @@
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .MuiButton-contained {
@@ -235,6 +229,7 @@
 
 .MuiButton-contained:hover {
     opacity: 0.9;
+    transform: scale(1.05);
 }
 
 .MuiButton-contained-secondary {
@@ -254,23 +249,36 @@ p {
     text-align: center;
 }
 
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#text1, #text2, #text3 {
+    animation: fadeIn 2s ease-in;
+}
+
 .shop {
     position: fixed;
     bottom: 15px;
-    zoom: 150%;
     right: 20px;
     background-color: #068306;
     padding: 12px;
     border-radius: 25px;
+    zoom: 150%;
+    transition: background-color 0.5s ease, transform 0.3s ease;
+    animation: bounce 2s infinite;
 }
 
 .shop:hover {
     background-color: #0bb313;
     cursor: pointer;
-    transition: .5s;
+    transform: scale(1.1);
 }
 
-/* Basic table styles */
+/* Basic Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -282,16 +290,15 @@ table {
 }
 
 thead {
-    background: linear-gradient(135deg, #44a61d, #22640d);
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
     color: #fff;
 }
 
 thead th {
     padding: 12px;
-    border-bottom: 2px solid #78f76c;
+    border-bottom: 2px solid #f76c6c;
     text-align: left;
     font-weight: bold;
-    font-size: 1.1rem;
 }
 
 tbody tr:nth-child(even) {
@@ -303,120 +310,40 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr:hover {
-    background-color: #e1f7e5;
-    color: #333;
+    background-color: #f1c40f;
+    color: #fff;
 }
 
 tbody td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.3s, color 0.3s;
-    font-size: 1rem;
     border-radius: 4px;
 }
 
-tbody tr:last-child td {
-    border-bottom: none;
-}
 
-table {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
-/* Order History Section */
-#order-history {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-}
-
-#order-history h2 {
-    font-size: 2rem;
-    color: #26cc00;
-    margin-bottom: 20px;
-}
-
-#order-history h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin: 10px 0;
-}
-
-#order-history ul {
-    list-style: none;
-    padding: 0;
-}
-
-#order-history li {
-    padding: 10px 0;
+/* Add these styles to home.css */
+/* سله التسوق */
+.cart-item {
+    margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
-    font-size: 1rem;
-    color: #333;
-}
-
-#order-history li:last-child {
-    border-bottom: none;
-}
-
-#order-history p {
-    font-size: 1.2rem;
-    color: #333;
-    margin: 10px 0;
-}
-
-#a {
-    color: rgb(3, 164, 213);
-}
-
-/* Message Box Styles */
-/* Basic styles for the message box */
-.MuiSnackbar-root {
-    bottom: 20px;
-    right: 20px;
-}
-
-.MuiAlert-root {
-    background-color: #ffffff; /* Updated background color */
-    color: #333333; /* Updated text color for better readability */
-    border-radius: 10px; /* Slightly rounded corners */
-    padding: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Softer shadow */
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    align-items: center; /* Center align content */
-}
-
-/* Different types of alerts */
-.MuiAlert-info {
-    border-left: 5px solid #2196f3; /* Blue for info */
-}
-
-.MuiAlert-error {
-    border-left: 5px solid #f44336; /* Red for error */
-}
-
-.MuiAlert-warning {
-    border-left: 5px solid #ff9800; /* Orange for warning */
-}
-
-.MuiAlert-success {
-    border-left: 5px solid #4caf50; /* Green for success */
-}
-
-/* Action button inside the alert */
-.MuiAlert-action {
-    margin-left: 16px;
-}
-
-/* Button styles */
-.MuiButton-root {
-    color: #2196f3; /* Match button color with alert color */
-}
-
-.MuiButton-root:hover {
-    background-color: rgba(33, 150, 243, 0.1); /* Light background on hover */
-}
+    padding: 10px 0;
+  }
+  
+  .quantity-input {
+    width: 50px;
+    margin-left: 10px;
+  }
+  
+  .payment-section {
+    margin-top: 20px;
+  }
+  
+  .payment-section input {
+    display: block;
+    margin: 5px 0;
+    padding: 8px;
+    width: calc(100% - 20px);
+  }
+  
