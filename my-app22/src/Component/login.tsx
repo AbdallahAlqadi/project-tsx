@@ -31,11 +31,8 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    // Retrieve stored data
     const storedData: StoredData | null = JSON.parse(localStorage.getItem('user') || 'null');
-    // Check if the entered data matches stored data
     if (storedData && storedData.email === formData.email && storedData.password === formData.password) {
-      // Redirect to home page
       navigate('/home');
     } else {
       alert('Invalid email or password');
@@ -44,22 +41,15 @@ const LoginForm: React.FC = () => {
 
   const handlePasswordChange = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-
     if (!oldPassword || !newPassword) {
       alert('Please enter both the old and new passwords.');
       return;
     }
-
-    // Retrieve stored data
     const storedData: StoredData | null = JSON.parse(localStorage.getItem('user') || 'null');
-
-    // Check if the old password matches the stored data
     if (storedData && storedData.email === formData.email && storedData.password === oldPassword) {
       try {
-        // Update local storage with the new password
         storedData.password = newPassword;
         localStorage.setItem('user', JSON.stringify(storedData));
-
         alert('Password updated successfully');
         setNewPassword('');
         setOldPassword('');
@@ -134,7 +124,7 @@ const LoginForm: React.FC = () => {
                   required
                 />
                 <button type="button" className="toggle-password-button" onClick={toggleShowOldPassword}>
-                {showPassword ? '👁️' : '🙈'}
+                  {showOldPassword ? '👁️' : '🙈'}
                 </button>
               </div>
             </div>
@@ -149,7 +139,7 @@ const LoginForm: React.FC = () => {
                   required
                 />
                 <button type="button" className="toggle-password-button" onClick={toggleShowNewPassword}>
-                {showPassword ? '👁️' : '🙈'}
+                  {showNewPassword ? '👁️' : '🙈'}
                 </button>
               </div>
             </div>
