@@ -306,7 +306,7 @@ const Home: React.FC = () => {
       <Button
         onClick={() => {
           placeOrder();
-          toggleCartModal(); // Close the modal after placing the order
+          toggleCartModal(); 
         }}
         style={{ backgroundColor: '#28a745', color: '#fff', borderRadius: '18px', fontSize: 'large' }}
         variant="contained"
