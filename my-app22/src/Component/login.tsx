@@ -79,6 +79,7 @@ const LoginForm: React.FC = () => {
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
+            style={{width:'553px'}}
               type="email"
               id="email"
               name="email"
@@ -91,12 +92,14 @@ const LoginForm: React.FC = () => {
             <label htmlFor="password">Password</label>
             <div className="password-input-container">
               <input
+              style={{width:'553px'}}
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                required
+                required  
+                
               />
               <button type="button" className="toggle-password-button" onClick={toggleShowPassword}>
                 {showPassword ? '👁️' : '🙈'}
@@ -121,6 +124,7 @@ const LoginForm: React.FC = () => {
               <label htmlFor="oldPassword">Old Password</label>
               <div className="password-input-container">
                 <input
+               style={{width:'553px'}}
                   type={showOldPassword ? 'text' : 'password'}
                   id="oldPassword"
                   value={oldPassword}
