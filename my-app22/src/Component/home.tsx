@@ -317,7 +317,7 @@ const Home: React.FC = () => {
   style={{ 
     backgroundColor: '#28a745', // Green color to match the "cart" theme
     color: '#fff', // White text for contrast
-    borderRadius: '70px', // Rounded shape
+    borderRadius: '80px', // Rounded shape
     fontSize: '1.2rem', // Larger font size
     position: 'fixed', 
     bottom: '20px', 
@@ -328,8 +328,8 @@ const Home: React.FC = () => {
     display: 'flex',
    
     justifyContent: 'center',
-    width:'80px',
-    height:'75px'
+    width:'82px',
+    height:'78px'
   }} 
   variant="contained" 
   startIcon={
