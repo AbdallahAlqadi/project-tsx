@@ -363,7 +363,7 @@ const Home: React.FC = () => {
                 <td>
                   <ul>
                     {order.items.map((item, index) => (
-                      <li key={index}>{item.name} - {item.price} - Quantity: {item.quantity}</li>
+                      <li style={{marginBottom:'20px'}} key={index}>{item.name} - {item.price} - Quantity: {item.quantity}</li>
                     ))}
                   </ul>
                 </td>
