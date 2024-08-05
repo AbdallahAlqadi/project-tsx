@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MessageAlert from '../Component/messagealert';
 import '../style/login,reg.css'; // Ensure you include this CSS file
 
 interface FormData {
@@ -23,6 +24,7 @@ const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showOldPassword, setShowOldPassword] = useState<boolean>(false);
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -35,14 +37,14 @@ const LoginForm: React.FC = () => {
     if (storedData && storedData.email === formData.email && storedData.password === formData.password) {
       navigate('/home');
     } else {
-      alert('Invalid email or password');
+      setAlertMessage('Invalid email or password');
     }
   };
 
   const handlePasswordChange = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!oldPassword || !newPassword) {
-      alert('Please enter both the old and new passwords.');
+      setAlertMessage('Please enter both the old and new passwords.');
       return;
     }
     const storedData: StoredData | null = JSON.parse(localStorage.getItem('user') || 'null');
@@ -50,22 +52,24 @@ const LoginForm: React.FC = () => {
       try {
         storedData.password = newPassword;
         localStorage.setItem('user', JSON.stringify(storedData));
-        alert('Password updated successfully');
+        setAlertMessage('Password updated successfully');
         setNewPassword('');
         setOldPassword('');
         setShowPasswordChange(false);
       } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred during password change');
+        setAlertMessage('An error occurred during password change');
       }
     } else {
-      alert('Old password is incorrect');
+      setAlertMessage('Old password is incorrect');
     }
   };
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
   const toggleShowOldPassword = () => setShowOldPassword(!showOldPassword);
   const toggleShowNewPassword = () => setShowNewPassword(!showNewPassword);
+
+  const closeAlert = () => setAlertMessage(null);
 
   return (
     <div className='b'>
@@ -154,6 +158,7 @@ const LoginForm: React.FC = () => {
           </form>
         )}
       </div>
+      {alertMessage && <MessageAlert message={alertMessage} onClose={closeAlert} />}
     </div>
   );
 };
