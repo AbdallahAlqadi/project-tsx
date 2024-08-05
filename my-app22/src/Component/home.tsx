@@ -1,8 +1,9 @@
 import React, { useReducer, useState } from "react";
 import '../style/home.css';
 import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { Modal,Badge,Box, Snackbar, Alert, TextField } from '@mui/material';
+import { Modal,IconButton ,Badge,Box, Snackbar, Alert, TextField } from '@mui/material';
 import salat_home from '../img/salat_home.png';
 import about from '../img/about.jpg';
 import plate1 from '../img/plate1.png';
@@ -156,16 +157,19 @@ const Home: React.FC = () => {
   };
 
   const paymentModalStyle = {
-    position: 'absolute' as const,
+    position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '90%',
+    maxWidth: '500px',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    borderRadius: '8px',
   };
+  
 
   return (
     <div className="body">
@@ -332,30 +336,55 @@ const Home: React.FC = () => {
 
 {/* payment */}
 <Modal open={isPaymentModalOpen} onClose={() => setIsPaymentModalOpen(false)}>
-        <Box sx={paymentModalStyle}>
-          <h2>Enter Payment Details</h2>
-          <TextField
-            label="Card Number"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Expiry Date"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="CVV"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-          />
-          <Button onClick={confirmPayment} style={{ backgroundColor: '#26cc00', color: 'white', marginTop: '16px' }}>Confirm Payment</Button>
-        </Box>
-      </Modal>
-
+      <Box sx={paymentModalStyle}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h2 style={{ margin: 0 }}>Enter Payment Details</h2>
+          <IconButton onClick={() => setIsPaymentModalOpen(false)} aria-label="close">
+            <CloseIcon />
+          </IconButton>
+        </div>
+        <TextField
+          label="Card Number"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="text"
+          placeholder="1234 5678 9012 3456"
+          inputProps={{ maxLength: 19 }}
+        />
+        <TextField
+          label="Expiry Date"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="text"
+          placeholder="MM/YY"
+          inputProps={{ maxLength: 5 }}
+        />
+        <TextField
+          label="CVV"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          type="text"
+          placeholder="123"
+          inputProps={{ maxLength: 3 }}
+        />
+        <Button
+          onClick={confirmPayment}
+          style={{
+            backgroundColor: '#26cc00',
+            color: 'white',
+            marginTop: '16px',
+            borderRadius: '4px',
+            padding: '10px 20px',
+            textTransform: 'uppercase'
+          }}
+        >
+          Confirm Payment
+        </Button>
+      </Box>
+    </Modal>
 
 
 
