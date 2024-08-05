@@ -317,26 +317,27 @@ const Home: React.FC = () => {
   style={{ 
     backgroundColor: '#28a745', // Green color to match the "cart" theme
     color: '#fff', // White text for contrast
-    borderRadius: '50px', // Rounded shape
+    borderRadius: '70px', // Rounded shape
     fontSize: '1.2rem', // Larger font size
     position: 'fixed', 
     bottom: '20px', 
-    right: '20px', 
-    padding: '12px 24px', // Padding for a more prominent button
+    right: '15px', 
+   // Padding for a more prominent button
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
     transition: 'background-color 0.3s ease, transform 0.3s ease', // Smooth transition
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+   
+    justifyContent: 'center',
+    width:'80px',
+    height:'75px'
   }} 
   variant="contained" 
   startIcon={
     <Badge badgeContent={cart.length} color="secondary">
-      <LocalMallIcon />
+      <LocalMallIcon  style={{zoom:'250%',marginLeft:'5px'}}/>
     </Badge>
   }
 >
-  View Cart
 </Button>
 
       {/* Order History */}
