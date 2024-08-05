@@ -147,7 +147,7 @@ const Home: React.FC = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 530,
+    width: 592,
     maxHeight: '70vh', // Set a max height for the scrollbar
     overflowY: 'auto', // Enable vertical scrolling
     bgcolor: 'background.paper',
