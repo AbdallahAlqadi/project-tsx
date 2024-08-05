@@ -315,7 +315,7 @@ const Home: React.FC = () => {
 <Button 
   onClick={toggleCartModal} 
   style={{ 
-    backgroundColor: '#28a745', // Green color to match the "cart" theme
+    backgroundColor: 'green', // Green color to match the "cart" theme
     color: '#fff', // White text for contrast
     borderRadius: '80px', // Rounded shape
     fontSize: '1.2rem', // Larger font size
