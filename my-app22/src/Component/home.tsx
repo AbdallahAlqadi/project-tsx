@@ -292,10 +292,21 @@ const Home: React.FC = () => {
         Place Order
       </Button>
       {message && (
-        <div style={{ marginTop: '16px', color: discountAmount > 0 ? '#28a745' : '#ff4d4d', fontWeight: 'bold' }}>
-          {message}
-        </div>
-      )}
+  <div 
+    style={{ 
+      marginTop: '16px', 
+      padding: '12px', 
+      borderRadius: '8px', 
+      backgroundColor: discountAmount > 0 ? '#d4edda' : '#f8d7da', 
+      color: discountAmount > 0 ? '#155724' : '#721c24', 
+      fontWeight: 'bold', 
+      border: `1px solid ${discountAmount > 0 ? '#c3e6cb' : '#f5c6cb'}`, 
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' 
+    }}
+  >
+    {message}
+  </div>
+)}
     </div>
   </Box>
 </Modal>
