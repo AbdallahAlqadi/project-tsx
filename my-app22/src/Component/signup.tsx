@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/login,reg.css';  
+import '../style/login,reg.css';
 
 interface FormData {
   username: string;
@@ -20,6 +20,7 @@ const RegisterForm: React.FC = () => {
     email: '',
     password: ''
   });
+  const [alertMessage, setAlertMessage] = useState<string>('');
   const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -36,7 +37,7 @@ const RegisterForm: React.FC = () => {
     const userExists = existingUsers.some(user => user.email === formData.email);
     
     if (userExists) {
-      alert('User with this email already exists.');
+      setAlertMessage('User with this email already exists.');
       return;
     }
 
@@ -58,6 +59,7 @@ const RegisterForm: React.FC = () => {
     <div className='b'>
       <div className="form-container">
         <h2 style={{ color: 'white' }}>Register</h2>
+        {alertMessage && <div className="alert-message">{alertMessage}</div>}
         <form style={{ marginBottom: '8px' }} onSubmit={handleSubmit}>
           <div className="form-group">
             <label style={{ color: 'white' }} htmlFor="username">Username</label>

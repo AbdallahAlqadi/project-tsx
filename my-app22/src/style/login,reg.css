@@ -120,3 +120,14 @@ input {
   padding: 0 10px;
   font-size: 1.2em;
 }
+
+
+.alert-message {
+  color: red;
+  background-color: #fafafa;
+  border: 1px solid #f5c2c7;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  text-align: center;
+}
