@@ -94,6 +94,8 @@ const Home: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [discountCode, setDiscountCode] = useState('');
   const [discountAmount, setDiscountAmount] = useState(0);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
 
   const addToCart = (item: Item) => {
     dispatch({ type: 'ADD_TO_CART', payload: item });
@@ -108,11 +110,14 @@ const Home: React.FC = () => {
       setMessage('Your cart is empty.');
       return;
     }
-  
+      setIsPaymentModalOpen(true);
+  };
+  const confirmPayment = () => {
     const orderNumber = orderCount + 1;
     const currentTime = new Date().toLocaleString();
     const totalAmount = cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0);
     const finalAmount = totalAmount - discountAmount;
+
   
     // Ensure finalAmount is not negative
     const adjustedFinalAmount = Math.max(finalAmount, 0);
@@ -127,7 +132,8 @@ const Home: React.FC = () => {
     setOrders(prevOrders => [...prevOrders, aggregatedOrder]);
     setOrderCount(orderNumber);
     dispatch({ type: 'CLEAR_CART' });
-    setIsCartModalOpen(false); // Close the modal after placing the order
+    setIsCartModalOpen(false);
+    setIsPaymentModalOpen(false);  // Close the modal after placing the order
     setMessage(`Order placed successfully! Final amount after discount: ${adjustedFinalAmount.toFixed(2)} JD`);
   };
 
@@ -143,6 +149,18 @@ const Home: React.FC = () => {
     width: 530,
     maxHeight: '70vh', // Set a max height for the scrollbar
     overflowY: 'auto', // Enable vertical scrolling
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const paymentModalStyle = {
+    position: 'absolute' as const,
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -264,7 +282,7 @@ const Home: React.FC = () => {
       <Button
         onClick={() => {
           if (discountCode === '1234') {
-            setDiscountAmount(2); // Apply a fixed discount of 2 JD
+            setDiscountAmount(2); // Apply a fixed discount of 10 JD
             setMessage('Discount code applied successfully!');
           } else {
             setDiscountAmount(0);
@@ -311,6 +329,36 @@ const Home: React.FC = () => {
   </Box>
 </Modal>
 
+
+{/* payment */}
+<Modal open={isPaymentModalOpen} onClose={() => setIsPaymentModalOpen(false)}>
+        <Box sx={paymentModalStyle}>
+          <h2>Enter Payment Details</h2>
+          <TextField
+            label="Card Number"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Expiry Date"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="CVV"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+          />
+          <Button onClick={confirmPayment} style={{ backgroundColor: '#26cc00', color: 'white', marginTop: '16px' }}>Confirm Payment</Button>
+        </Box>
+      </Modal>
+
+
+
+
      {/* icon shop */}
 <Button 
   onClick={toggleCartModal} 
@@ -323,9 +371,8 @@ const Home: React.FC = () => {
     bottom: '20px', 
     right: '15px', 
 
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    transition: 'background-color 0.3s ease, transform 0.3s ease', 
-    display: 'flex',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', 
+    transition: 'background-color 0.3s ease, transform 0.3s ease', // Smooth transition
    
     justifyContent: 'center',
     width:'82px',
@@ -376,16 +423,11 @@ const Home: React.FC = () => {
       </table>
 
       {/* Message Box */}
-      <Snackbar
-        open={Boolean(message)}
-        autoHideDuration={6000}
-        onClose={() => setMessage(null)}
-      >
-        <Alert onClose={() => setMessage(null)} severity="info" variant="filled">
+      <Snackbar open={Boolean(message)} autoHideDuration={6000} onClose={() => setMessage(null)}>
+        <Alert onClose={() => setMessage(null)} severity="info" sx={{ width: '100%' }}>
           {message}
         </Alert>
       </Snackbar>
-
     </div>
   );
 };
