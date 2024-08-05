@@ -264,7 +264,7 @@ const Home: React.FC = () => {
       <Button
         onClick={() => {
           if (discountCode === '1234') {
-            setDiscountAmount(2); // Apply a fixed discount of 10 JD
+            setDiscountAmount(2); // Apply a fixed discount of 2 JD
             setMessage('Discount code applied successfully!');
           } else {
             setDiscountAmount(0);
@@ -315,16 +315,16 @@ const Home: React.FC = () => {
 <Button 
   onClick={toggleCartModal} 
   style={{ 
-    backgroundColor: 'green', // Green color to match the "cart" theme
-    color: '#fff', // White text for contrast
-    borderRadius: '80px', // Rounded shape
-    fontSize: '1.2rem', // Larger font size
+    backgroundColor: 'green', 
+    color: '#fff',
+    borderRadius: '80px', 
+    fontSize: '1.2rem', 
     position: 'fixed', 
     bottom: '20px', 
     right: '15px', 
-   // Padding for a more prominent button
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow
-    transition: 'background-color 0.3s ease, transform 0.3s ease', // Smooth transition
+
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease, transform 0.3s ease', 
     display: 'flex',
    
     justifyContent: 'center',
