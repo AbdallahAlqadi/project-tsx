@@ -101,3 +101,22 @@ input {
 .change-password-form {
   margin-top: 20px;
 }
+
+
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  flex: 1;
+}
+
+.toggle-password-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 10px;
+  font-size: 1.2em;
+}

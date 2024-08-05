@@ -20,6 +20,9 @@ const LoginForm: React.FC = () => {
   const [newPassword, setNewPassword] = useState<string>('');
   const [oldPassword, setOldPassword] = useState<string>('');
   const [showPasswordChange, setShowPasswordChange] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showOldPassword, setShowOldPassword] = useState<boolean>(false);
+  const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -70,6 +73,10 @@ const LoginForm: React.FC = () => {
     }
   };
 
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+  const toggleShowOldPassword = () => setShowOldPassword(!showOldPassword);
+  const toggleShowNewPassword = () => setShowNewPassword(!showNewPassword);
+
   return (
     <div className='b'>
       <div style={{ marginTop: '90px' }} className={`form-container ${showPasswordChange ? 'expanded' : ''}`}>
@@ -88,14 +95,19 @@ const LoginForm: React.FC = () => {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <div className="password-input-container">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <button type="button" className="toggle-password-button" onClick={toggleShowPassword}>
+                {showPassword ? '👁️' : '🙈'}
+              </button>
+            </div>
           </div>
           <button type="submit" className="submit-button">Login</button>
         </form>
@@ -113,23 +125,33 @@ const LoginForm: React.FC = () => {
             <h3>Change Password</h3>
             <div className="form-group">
               <label htmlFor="oldPassword">Old Password</label>
-              <input
-                type="password"
-                id="oldPassword"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-                required
-              />
+              <div className="password-input-container">
+                <input
+                  type={showOldPassword ? 'text' : 'password'}
+                  id="oldPassword"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                  required
+                />
+                <button type="button" className="toggle-password-button" onClick={toggleShowOldPassword}>
+                {showPassword ? '👁️' : '🙈'}
+                </button>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="newPassword">New Password</label>
-              <input
-                type="password"
-                id="newPassword"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-              />
+              <div className="password-input-container">
+                <input
+                  type={showNewPassword ? 'text' : 'password'}
+                  id="newPassword"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+                <button type="button" className="toggle-password-button" onClick={toggleShowNewPassword}>
+                {showPassword ? '👁️' : '🙈'}
+                </button>
+              </div>
             </div>
             <button type="submit" className="submit-button">Update Password</button>
             <button
