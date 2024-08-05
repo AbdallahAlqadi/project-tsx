@@ -264,7 +264,7 @@ const Home: React.FC = () => {
       <Button
         onClick={() => {
           if (discountCode === '1234') {
-            setDiscountAmount(10); // Apply a fixed discount of 10 JD
+            setDiscountAmount(2); // Apply a fixed discount of 10 JD
             setMessage('Discount code applied successfully!');
           } else {
             setDiscountAmount(0);
