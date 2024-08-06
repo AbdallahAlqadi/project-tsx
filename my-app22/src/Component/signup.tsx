@@ -94,9 +94,9 @@ const RegisterForm: React.FC = () => {
               required
             />
           </div>
-          <button type="submit" className="submit-button">Register</button>
+          <button style={{marginLeft:'20px'}} type="submit" className="submit-button">Register</button>
         </form> 
-        <a id='z' onClick={goToLogin} className="login-button">Login</a>
+        <a id='z'  onClick={goToLogin} className="login-button">Login</a>
       </div>
     </div>
   );

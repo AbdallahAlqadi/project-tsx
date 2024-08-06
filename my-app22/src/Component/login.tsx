@@ -119,7 +119,7 @@ const LoginForm: React.FC = () => {
         <a style={{ marginLeft: '370px', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
         {showPasswordChange && (
           <form onSubmit={handlePasswordChange} className="change-password-form">
-            <h3>Change Password</h3>
+            <h3 style={{marginLeft:'20px',marginTop:'55px',marginBottom:'16px'}}>Change Password</h3>
             <div className="form-group">
               <label style={{marginLeft:'20px'}} htmlFor="oldPassword">Old Password</label>
               <div className="password-input-container">
