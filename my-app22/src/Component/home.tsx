@@ -507,7 +507,7 @@ const cartItemStyle = css`
     position: 'fixed', 
     bottom: '20px', 
     right: '15px', 
-
+    animation: 'bounce 2s infinite',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', 
     transition: 'background-color 0.3s ease, transform 0.3s ease', // Smooth transition
    
