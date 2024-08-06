@@ -4,6 +4,9 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { Modal,IconButton ,Badge,Box, Snackbar, Alert, TextField } from '@mui/material';
+import { parse, isFuture, isToday } from 'date-fns';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import salat_home from '../img/salat_home.png';
 import about from '../img/about.jpg';
 import plate1 from '../img/plate1.png';
@@ -35,6 +38,30 @@ interface Order {
   items: Item[];
   totalAmount: number;
 }
+
+
+const validationSchema = yup.object({
+  cardNumber: yup
+    .string()
+    .required('Card Number is required')
+    .matches(/^[0-9]+$/, 'Card Number must contain only numbers'), // يحقق أن رقم البطاقة يحتوي على أرقام فقط
+  expiryDate: yup
+    .string()
+    .required('Expiry Date is required')
+    .test('expiryDate', 'Expiry Date is not valid', function(value) {
+      if (!value) return false;
+      const parsedDate = parse(value, 'MM/yy', new Date());
+      // يتحقق من أن الشهر والسنة في المستقبل أو الآن
+      return parsedDate.getFullYear() > new Date().getFullYear() || 
+             (parsedDate.getFullYear() === new Date().getFullYear() && parsedDate.getMonth() >= new Date().getMonth());
+    }),
+  cvv: yup
+    .string()
+    .required('CVV is required')
+    .matches(/^[0-9]{3}$/, 'CVV is not valid'), // يحقق أن CVV يحتوي على 3 أرقام
+});
+
+
 
 type ActionType = 
   | { type: 'ADD_TO_CART'; payload: Item }
@@ -83,6 +110,19 @@ function reducer(state: Item[], action: ActionType): Item[] {
 }
 
 const Home: React.FC = () => {
+
+
+  const formik = useFormik({
+    initialValues: {
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      confirmPayment(values);
+    },
+  });
   const cardsRef = React.useRef<HTMLDivElement>(null);
   const scrollToCards = () => {
     if (cardsRef.current) {
@@ -115,7 +155,7 @@ const Home: React.FC = () => {
     }
       setIsPaymentModalOpen(true);
   };
-  const confirmPayment = () => {
+  const confirmPayment = (values: { cardNumber: string; expiryDate: string; cvv: string }) => {
     const orderNumber = orderCount + 1;
     const currentTime = new Date().toLocaleString();
     const totalAmount = cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0);
@@ -347,57 +387,71 @@ const Home: React.FC = () => {
 
 
 {/* payment */}
-<Modal open={isPaymentModalOpen} onClose={() => setIsPaymentModalOpen(false)}>
-      <Box sx={paymentModalStyle}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2 style={{ margin: 0 }}>Enter Payment Details</h2>
-          <IconButton onClick={() => setIsPaymentModalOpen(false)} aria-label="close">
+<Modal
+        open={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        aria-labelledby="modal-payment-title"
+        aria-describedby="modal-payment-description"
+      >
+        <Box sx={paymentModalStyle}>
+          <IconButton
+            onClick={() => setIsPaymentModalOpen(false)}
+            sx={{ position: 'absolute', top: 8, right: 8 }}
+          >
             <CloseIcon />
           </IconButton>
-        </div>
-        <TextField
-          label="Card Number"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          type="text"
-          placeholder="1234 5678 9012 3456"
-          inputProps={{ maxLength: 19 }}
-        />
-        <TextField
-          label="Expiry Date"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          type="text"
-          placeholder="MM/YY"
-          inputProps={{ maxLength: 5 }}
-        />
-        <TextField
-          label="CVV"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          type="text"
-          placeholder="123"
-          inputProps={{ maxLength: 3 }}
-        />
-        <Button
-          onClick={confirmPayment}
-          style={{
-            backgroundColor: '#26cc00',
-            color: 'white',
-            marginTop: '16px',
-            borderRadius: '4px',
-            padding: '10px 20px',
-            textTransform: 'uppercase'
-          }}
-        >
-          Confirm Payment
-        </Button>
-      </Box>
-    </Modal>
-
+          <h2 id="modal-payment-title">Payment Information</h2>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              fullWidth
+              id="cardNumber"
+              name="cardNumber"
+              label="Card Number"
+              value={formik.values.cardNumber}
+              onChange={formik.handleChange}
+              error={formik.touched.cardNumber && Boolean(formik.errors.cardNumber)}
+              helperText={formik.touched.cardNumber && formik.errors.cardNumber}
+              margin="normal"
+              inputProps={{ maxLength: 19 }} // Adjust as needed for formatting
+              onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                // Add space after every 4 digits
+                e.target.value = e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+              }}
+            />
+            <TextField
+              fullWidth
+              id="expiryDate"
+              name="expiryDate"
+              label="Expiry Date (MM/YY)"
+              value={formik.values.expiryDate}
+              onChange={formik.handleChange}
+              error={formik.touched.expiryDate && Boolean(formik.errors.expiryDate)}
+              helperText={formik.touched.expiryDate && formik.errors.expiryDate}
+              margin="normal"
+              inputProps={{ maxLength: 5 }} // Adjust as needed for formatting
+              onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                // Add slash after first 2 digits
+                e.target.value = e.target.value.replace(/^(\d{2})(\d{0,2})/, '$1/$2');
+              }}
+            />
+            <TextField
+              fullWidth
+              id="cvv"
+              name="cvv"
+              label="CVV"
+              value={formik.values.cvv}
+              onChange={formik.handleChange}
+              error={formik.touched.cvv && Boolean(formik.errors.cvv)}
+              helperText={formik.touched.cvv && formik.errors.cvv}
+              margin="normal"
+              inputProps={{ maxLength: 3 }} // Adjust as needed for formatting
+            />
+            <Button color="primary" variant="contained" fullWidth type="submit" style={{ marginTop: '16px' }}>
+              Confirm Payment
+            </Button>
+          </form>
+        </Box>
+      </Modal>
 
 
      {/* icon shop */}
