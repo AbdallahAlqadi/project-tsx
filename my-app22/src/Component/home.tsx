@@ -364,7 +364,7 @@ const cartItemStyle = css`
             variant="outlined"
             value={discountCode}
             onChange={(e) => setDiscountCode(e.target.value)}
-            style={{ marginBottom: '16px', width: '100%' }}
+            style={{ marginBottom: '16px', width: '100%',marginTop:'20px' }}
           />
           <Button
             onClick={() => {
