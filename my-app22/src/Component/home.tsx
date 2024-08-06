@@ -287,7 +287,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Modal for Shopping Cart */}
-<Modal
+      <Modal
   open={isCartModalOpen}
   onClose={toggleCartModal}
   aria-labelledby="cart-modal-title"
