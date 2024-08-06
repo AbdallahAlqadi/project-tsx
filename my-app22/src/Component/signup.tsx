@@ -41,13 +41,13 @@ const RegisterForm: React.FC = () => {
       return;
     }
 
-    // Add new user to the list
+   
     existingUsers.push(formData);
 
     // Store updated list in localStorage
     localStorage.setItem('users', JSON.stringify(existingUsers));
 
-    // Navigate to login page or home page
+    
     navigate('/home');
   };
 

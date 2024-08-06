@@ -31,7 +31,7 @@ interface Item {
   name: string;
   price: string;
   quantity?: number;
-  image?: string; // Add this line
+  image?: string; 
 }
 
 
@@ -184,7 +184,7 @@ const Home: React.FC = () => {
     setOrderCount(orderNumber);
     dispatch({ type: 'CLEAR_CART' });
     setIsCartModalOpen(false);
-    setIsPaymentModalOpen(false);  // Close the modal after placing the order
+    setIsPaymentModalOpen(false);  
     setMessage(`Order placed successfully! Final amount after discount: ${adjustedFinalAmount.toFixed(2)} JD`);
   };
 

@@ -1,6 +1,6 @@
-// MessageAlert.tsx
+
 import React from 'react';
- // Ensure you include this CSS file
+ 
 
 interface MessageAlertProps {
   message: string;

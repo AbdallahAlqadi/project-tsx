@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MessageAlert from '../Component/messagealert';
-import '../style/login,reg.css'; // Ensure you include this CSS file
+import '../style/login,reg.css';
 
 interface FormData {
   email: string;

@@ -19,11 +19,11 @@
   color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.542);
   transition: height 0.3s ease;
-  overflow: hidden; /* Ensure content does not overflow */
+  overflow: hidden; 
 }
 
 .form-container.expanded {
-  height: auto; /* Automatically adjust height */
+  height: auto; 
 }
 
 #z {
