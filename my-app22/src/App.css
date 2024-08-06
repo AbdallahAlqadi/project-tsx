@@ -22,7 +22,8 @@ html, body {
   align-items: center;
   padding: 0 20px; /* Adjust the padding as needed */
   box-shadow: none; /* Remove default shadow if not needed */
-  background-color: #068306; /* Ensure background color is applied */
+  background: linear-gradient(135deg, #086e26, #2c927c);
+  /* Ensure background color is applied */
 }
 
 .appbar .toolbar {
@@ -72,7 +73,7 @@ html, body {
 
 /* Footer */
 footer {
-  background-color: #068306;
+  background: linear-gradient(135deg, #086e26, #2c927c);
   color: #ffffff;
   padding: 20px 0;
   text-align: center;

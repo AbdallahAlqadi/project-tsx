@@ -1,3 +1,4 @@
+// src/Component/login.js
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MessageAlert from '../Component/messagealert';
@@ -13,11 +14,8 @@ interface StoredData {
   password: string;
 }
 
-const LoginForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    email: '',
-    password: ''
-  });
+const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setIsLoggedIn }) => {
+  const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
   const [newPassword, setNewPassword] = useState<string>('');
   const [oldPassword, setOldPassword] = useState<string>('');
   const [showPasswordChange, setShowPasswordChange] = useState<boolean>(false);
@@ -33,8 +31,11 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    const storedData: StoredData | null = JSON.parse(localStorage.getItem('user') || 'null');
-    if (storedData && storedData.email === formData.email && storedData.password === formData.password) {
+    const users: StoredData[] = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.email === formData.email && u.password === formData.password);
+    if (user) {
+      localStorage.setItem('isLoggedIn', 'true');
+      setIsLoggedIn(true);
       navigate('/home');
     } else {
       setAlertMessage('Invalid email or password');
@@ -47,19 +48,15 @@ const LoginForm: React.FC = () => {
       setAlertMessage('Please enter both the old and new passwords.');
       return;
     }
-    const storedData: StoredData | null = JSON.parse(localStorage.getItem('user') || 'null');
-    if (storedData && storedData.email === formData.email && storedData.password === oldPassword) {
-      try {
-        storedData.password = newPassword;
-        localStorage.setItem('user', JSON.stringify(storedData));
-        setAlertMessage('Password updated successfully');
-        setNewPassword('');
-        setOldPassword('');
-        setShowPasswordChange(false);
-      } catch (error) {
-        console.error('Error:', error);
-        setAlertMessage('An error occurred during password change');
-      }
+    const users: StoredData[] = JSON.parse(localStorage.getItem('users') || '[]');
+    const userIndex = users.findIndex(u => u.email === formData.email && u.password === oldPassword);
+    if (userIndex !== -1) {
+      users[userIndex].password = newPassword;
+      localStorage.setItem('users', JSON.stringify(users));
+      setAlertMessage('Password updated successfully');
+      setNewPassword('');
+      setOldPassword('');
+      setShowPasswordChange(false);
     } else {
       setAlertMessage('Old password is incorrect');
     }
@@ -79,7 +76,7 @@ const LoginForm: React.FC = () => {
           <div className="form-group">
             <label style={{marginLeft:'20px'}} htmlFor="email">Email</label>
             <input
-            style={{width:'533px',marginLeft:'20px'}}
+              style={{width:'533px',marginLeft:'20px'}}
               type="email"
               id="email"
               name="email"
@@ -92,14 +89,13 @@ const LoginForm: React.FC = () => {
             <label style={{marginLeft:'20px'}} htmlFor="password">Password</label>
             <div className="password-input-container">
               <input
-              style={{width:'553px',marginLeft:'20px'}}
+                style={{width:'553px',marginLeft:'20px'}}
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 required  
-                
               />
               <button type="button" className="toggle-password-button" onClick={toggleShowPassword}>
                 {showPassword ? '👁️' : '🙈'}
@@ -124,7 +120,7 @@ const LoginForm: React.FC = () => {
               <label style={{marginLeft:'20px'}} htmlFor="oldPassword">Old Password</label>
               <div className="password-input-container">
                 <input
-               style={{width:'553px',marginLeft:'20px'}}
+                  style={{width:'553px',marginLeft:'20px'}}
                   type={showOldPassword ? 'text' : 'password'}
                   id="oldPassword"
                   value={oldPassword}
@@ -139,7 +135,8 @@ const LoginForm: React.FC = () => {
             <div className="form-group">
               <label style={{marginLeft:'20px'}} htmlFor="newPassword">New Password</label>
               <div className="password-input-container">
-                <input style={{marginLeft:'20px'}}
+                <input
+                  style={{marginLeft:'20px'}}
                   type={showNewPassword ? 'text' : 'password'}
                   id="newPassword"
                   value={newPassword}

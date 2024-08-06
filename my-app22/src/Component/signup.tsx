@@ -1,3 +1,4 @@
+// src/Component/signup.js
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style/login,reg.css';
@@ -41,14 +42,17 @@ const RegisterForm: React.FC = () => {
       return;
     }
 
-   
+    // Add new user to the list
     existingUsers.push(formData);
 
     // Store updated list in localStorage
     localStorage.setItem('users', JSON.stringify(existingUsers));
 
-    
-    navigate('/home');
+    // Show success message and navigate to home page
+    setAlertMessage('Registration successful!');
+    setTimeout(() => {
+      navigate('/login');
+    }, 2000);
   };
 
   const goToLogin = (): void => {
@@ -96,7 +100,7 @@ const RegisterForm: React.FC = () => {
           </div>
           <button style={{marginLeft:'20px'}} type="submit" className="submit-button">Register</button>
         </form> 
-        <a id='z'  onClick={goToLogin} className="login-button">Login</a>
+        <a id='z' onClick={goToLogin} className="login-button">Login</a>
       </div>
     </div>
   );
