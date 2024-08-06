@@ -146,11 +146,15 @@ const Home: React.FC = () => {
   const [discountAmount, setDiscountAmount] = useState(0);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
+  const isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'));
 
   const addToCart = (item: Item) => {
+    if (!isLoggedIn) {
+      alert('Please log in to add items to your cart.');
+      return;
+    }
     dispatch({ type: 'ADD_TO_CART', payload: item });
   };
-  
 
   const updateQuantity = (index: number, quantity: number) => {
     dispatch({ type: 'UPDATE_QUANTITY', payload: { index, quantity } });
