@@ -56,6 +56,8 @@ const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => v
     );
   };
 
+
+// جزئيه الزياده والنقصان والاضافه الى السله
 function reducer(state: Item[], action: ActionType): Item[] {
   switch (action.type) {
     case 'ADD_TO_CART':
