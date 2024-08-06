@@ -31,7 +31,9 @@ interface Item {
   name: string;
   price: string;
   quantity?: number;
+  image?: string; // Add this line
 }
+
 
 interface Order {
   orderNumber: number;
@@ -73,16 +75,20 @@ type ActionType =
 const initialState: Item[] = [];
 
 const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => void; onDecrease: () => void }> = ({ item, onRemove, onIncrease, onDecrease }) => {
-    return (
-      <div>
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ddd', borderRadius: '8px', padding: '8px', marginBottom: '8px' }}>
+      {item.image && <img src={item.image} alt={item.name} style={{ width: '50px', height: '50px', objectFit: 'cover', marginRight: '8px' }} />}
+      <div style={{ flex: 1 }}>
         <span>{item.name} - {item.price} - Quantity: </span>
         <Button onClick={onDecrease} style={{ color: 'orange' }}>-</Button>
         <span>{item.quantity || 1}</span>
         <Button onClick={onIncrease} style={{ color: 'orange' }}>+</Button>
         <Button onClick={onRemove} style={{ color: 'red' }}>Remove</Button>
       </div>
-    );
-  };
+    </div>
+  );
+};
+
 
 
 // جزئيه الزياده والنقصان والاضافه الى السله
@@ -144,6 +150,7 @@ const Home: React.FC = () => {
   const addToCart = (item: Item) => {
     dispatch({ type: 'ADD_TO_CART', payload: item });
   };
+  
 
   const updateQuantity = (index: number, quantity: number) => {
     dispatch({ type: 'UPDATE_QUANTITY', payload: { index, quantity } });
@@ -190,7 +197,7 @@ const Home: React.FC = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 592,
+    width: 633,
     maxHeight: '70vh', // Set a max height for the scrollbar
     overflowY: 'auto', // Enable vertical scrolling
     bgcolor: 'background.paper',
@@ -213,7 +220,7 @@ const Home: React.FC = () => {
     borderRadius: '8px',
   };
   
-
+// السله
   const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -285,10 +292,10 @@ const cartItemStyle = css`
           { id: 'plate8', name: 'Fruit Salad', price: '5.00JD', src: plate8 }
         ].map((item, index) => (
           <div id='card' key={index}>
-            <img id='imgcard' src={item.src} alt={item.name} />
-            <h2 id='textcard1'>{item.name}</h2>
-            <h4 id='textcard2'>{item.price}</h4>
-            <Button variant="contained" style={{ color: 'green', backgroundColor: 'white', border: '1px solid green', width: '250px', marginLeft: '25px' }} onClick={() => addToCart({ name: item.name, price: item.price })}>ADD TO ORDER</Button>
+           <img id='imgcard' src={item.src} alt={item.name} />
+    <h2 id='textcard1'>{item.name}</h2>
+    <h4 id='textcard2'>{item.price}</h4>
+    <Button variant="contained" style={{ color: 'green', backgroundColor: 'white', border: '1px solid green', width: '250px', marginLeft: '25px' }} onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}>ADD TO ORDER</Button>
           </div>
         ))}
       </div>
@@ -309,10 +316,10 @@ const cartItemStyle = css`
           { id: 'z9', name: 'Avocado Juice', price: '2.75JD', src: z9 }
         ].map((item, index) => (
           <div id='card' key={index}>
-            <img id='imgcard2' src={item.src} alt={item.name} />
-            <h2 id='textcard1'>{item.name}</h2>
-            <h4 id='textcard2'>{item.price}</h4>
-            <Button variant="contained" style={{ color: 'green', backgroundColor: 'white', border: '1px solid green', width: '250px', marginLeft: '25px' }} onClick={() => addToCart({ name: item.name, price: item.price })}>ADD TO ORDER</Button>
+           <img id='imgcard2' src={item.src} alt={item.name} />
+    <h2 id='textcard1'>{item.name}</h2>
+    <h4 id='textcard2'>{item.price}</h4>
+    <Button variant="contained" style={{ color: 'green', backgroundColor: 'white', border: '1px solid green', width: '250px', marginLeft: '25px' }} onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}>ADD TO ORDER</Button>
           </div>
         ))}
       </div>
