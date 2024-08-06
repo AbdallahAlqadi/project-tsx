@@ -484,7 +484,7 @@ const Home: React.FC = () => {
 
       {/* Order History */}
       <h2 id="a">Order History</h2>
-      <table className="table" id="order-history-table" style={{ width: '90%', borderCollapse: 'collapse',marginLeft:'70px' }}>
+      <table className="table" id="order-history-table" style={{ width: '90%', borderCollapse: 'collapse',marginLeft:'70px',"marginBottom":'150px'}}>
         <thead>
           <tr>
             <th>Order Number</th>

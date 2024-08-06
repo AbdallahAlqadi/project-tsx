@@ -77,9 +77,9 @@ const LoginForm: React.FC = () => {
         <h2 style={{ color: 'white' }}>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label style={{marginLeft:'20px'}} htmlFor="email">Email</label>
             <input
-            style={{width:'553px'}}
+            style={{width:'533px',marginLeft:'20px'}}
               type="email"
               id="email"
               name="email"
@@ -89,10 +89,10 @@ const LoginForm: React.FC = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label style={{marginLeft:'20px'}} htmlFor="password">Password</label>
             <div className="password-input-container">
               <input
-              style={{width:'553px'}}
+              style={{width:'553px',marginLeft:'20px'}}
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
@@ -121,10 +121,10 @@ const LoginForm: React.FC = () => {
           <form onSubmit={handlePasswordChange} className="change-password-form">
             <h3>Change Password</h3>
             <div className="form-group">
-              <label htmlFor="oldPassword">Old Password</label>
+              <label style={{marginLeft:'20px'}} htmlFor="oldPassword">Old Password</label>
               <div className="password-input-container">
                 <input
-               style={{width:'553px'}}
+               style={{width:'553px',marginLeft:'20px'}}
                   type={showOldPassword ? 'text' : 'password'}
                   id="oldPassword"
                   value={oldPassword}
@@ -137,9 +137,9 @@ const LoginForm: React.FC = () => {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="newPassword">New Password</label>
+              <label style={{marginLeft:'20px'}} htmlFor="newPassword">New Password</label>
               <div className="password-input-container">
-                <input
+                <input style={{marginLeft:'20px'}}
                   type={showNewPassword ? 'text' : 'password'}
                   id="newPassword"
                   value={newPassword}
