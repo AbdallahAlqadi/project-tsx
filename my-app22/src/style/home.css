@@ -61,9 +61,12 @@ margin-top: 60px;
 #text1 {
     margin-top: 180px;
     font-size: xxx-large;
-    color: rgb(2, 148, 2);
+    background: linear-gradient(135deg, #086e26, #2c927c); 
+    -webkit-background-clip: text;
+    color: transparent; 
     margin-left: 520px;
 }
+
 
 #text2 {
     font-size: xxx-large;

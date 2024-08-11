@@ -262,7 +262,7 @@ const cartItemStyle = css`
         <div className="secssion1">
           <h1 id='text1'>Tasty food <br /> and healthy.</h1>
           <h1 id='text2'>Try the best <br />food of the week.</h1>
-          <Button onClick={scrollToCards} style={{ backgroundColor: '#26cc00', borderRadius: '18px', fontSize: 'large', marginLeft: '540px' }} variant="contained" className='button1'>View Menu</Button>
+          <Button onClick={scrollToCards} style={{ background: 'linear-gradient(135deg, #086e26, #2c927c)', borderRadius: '18px', fontSize: 'large', marginLeft: '540px' }} variant="contained" className='button1'>View Menu</Button>
         </div>
         <div className="secssion2">
           <img id='imgsec2' src={salat_home} alt="Salad" />
@@ -497,10 +497,10 @@ const cartItemStyle = css`
 
 
      {/* icon shop */}
-<Button 
+     <Button 
   onClick={toggleCartModal} 
   style={{ 
-    backgroundColor: 'green', 
+    background: 'linear-gradient(135deg, #086e26, #2c927c)', // Use 'background' instead of 'backgroundColor'
     color: '#fff',
     borderRadius: '80px', 
     fontSize: '1.2rem', 
@@ -510,15 +510,14 @@ const cartItemStyle = css`
     animation: 'bounce 2s infinite',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', 
     transition: 'background-color 0.3s ease, transform 0.3s ease', // Smooth transition
-   
     justifyContent: 'center',
-    width:'82px',
-    height:'78px'
+    width: '82px',
+    height: '78px'
   }} 
   variant="contained" 
   startIcon={
     <Badge badgeContent={cart.length} color="secondary">
-      <LocalMallIcon  style={{zoom:'250%',marginLeft:'5px'}}/>
+      <LocalMallIcon style={{ zoom: '250%', marginLeft: '5px' }}/>
     </Badge>
   }
 >
