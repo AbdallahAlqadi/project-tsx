@@ -1,5 +1,4 @@
-// src/Component/login.js
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MessageAlert from '../Component/messagealert';
 import '../style/login,reg.css';
@@ -24,6 +23,15 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (alertMessage) {
+      const timer = setTimeout(() => {
+        setAlertMessage(null);
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [alertMessage]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -74,9 +82,9 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
         <h2 style={{ color: 'white' }}>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label style={{marginLeft:'20px'}} htmlFor="email">Email</label>
+            <label style={{ marginLeft: '20px' }} htmlFor="email">Email</label>
             <input
-              style={{width:'533px',marginLeft:'20px'}}
+              style={{ width: '533px', marginLeft: '20px' }}
               type="email"
               id="email"
               name="email"
@@ -86,16 +94,16 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
             />
           </div>
           <div className="form-group">
-            <label style={{marginLeft:'20px'}} htmlFor="password">Password</label>
+            <label style={{ marginLeft: '20px' }} htmlFor="password">Password</label>
             <div className="password-input-container">
               <input
-                style={{width:'553px',marginLeft:'20px'}}
+                style={{ width: '553px', marginLeft: '20px' }}
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                required  
+                required
               />
               <button type="button" className="toggle-password-button" onClick={toggleShowPassword}>
                 {showPassword ? '👁️' : '🙈'}
@@ -115,12 +123,12 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
         <a style={{ marginLeft: '370px', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
         {showPasswordChange && (
           <form onSubmit={handlePasswordChange} className="change-password-form">
-            <h3 style={{marginLeft:'20px',marginTop:'55px',marginBottom:'16px'}}>Change Password</h3>
+            <h3 style={{ marginLeft: '20px', marginTop: '55px', marginBottom: '16px' }}>Change Password</h3>
             <div className="form-group">
-              <label style={{marginLeft:'20px'}} htmlFor="oldPassword">Old Password</label>
+              <label style={{ marginLeft: '20px' }} htmlFor="oldPassword">Old Password</label>
               <div className="password-input-container">
                 <input
-                  style={{width:'553px',marginLeft:'20px'}}
+                  style={{ width: '553px', marginLeft: '20px' }}
                   type={showOldPassword ? 'text' : 'password'}
                   id="oldPassword"
                   value={oldPassword}
@@ -133,10 +141,10 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
               </div>
             </div>
             <div className="form-group">
-              <label style={{marginLeft:'20px'}} htmlFor="newPassword">New Password</label>
+              <label style={{ marginLeft: '20px' }} htmlFor="newPassword">New Password</label>
               <div className="password-input-container">
                 <input
-                  style={{marginLeft:'20px'}}
+                  style={{ marginLeft: '20px' }}
                   type={showNewPassword ? 'text' : 'password'}
                   id="newPassword"
                   value={newPassword}

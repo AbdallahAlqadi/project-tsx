@@ -262,7 +262,7 @@ const cartItemStyle = css`
         <div className="secssion1">
           <h1 id='text1'>Tasty food <br /> and healthy.</h1>
           <h1 id='text2'>Try the best <br />food of the week.</h1>
-          <Button onClick={scrollToCards} style={{ background: 'linear-gradient(135deg, #086e26, #2c927c)', borderRadius: '18px', fontSize: 'large', marginLeft: '540px' }} variant="contained" className='button1'>View Menu</Button>
+          <Button onClick={scrollToCards} style={{ background: 'green', borderRadius: '18px', fontSize: 'large', marginLeft: '540px' }} variant="contained" className='button1'>View Menu</Button>
         </div>
         <div className="secssion2">
           <img id='imgsec2' src={salat_home} alt="Salad" />
@@ -531,7 +531,7 @@ const cartItemStyle = css`
      <Button 
   onClick={toggleCartModal} 
   style={{ 
-    background: 'linear-gradient(135deg, #086e26, #2c927c)', // Use 'background' instead of 'backgroundColor'
+    background:'green' , // Use 'background' instead of 'backgroundColor'
     color: '#fff',
     borderRadius: '80px', 
     fontSize: '1.2rem', 
@@ -555,7 +555,7 @@ const cartItemStyle = css`
 </Button>
 
       {/* Order History */}
-      <h2 id="a">Order History</h2>
+      <h2 >Order History</h2>
       <table className="table" id="order-history-table" style={{ width: '90%', borderCollapse: 'collapse',marginLeft:'70px',"marginBottom":'150px'}}>
         <thead>
           <tr>
