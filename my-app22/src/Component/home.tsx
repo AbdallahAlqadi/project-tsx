@@ -299,7 +299,23 @@ const cartItemStyle = css`
            <img id='imgcard' src={item.src} alt={item.name} />
     <h2 id='textcard1'>{item.name}</h2>
     <h4 id='textcard2'>{item.price}</h4>
-    <Button variant="contained" style={{ color: 'green', backgroundColor: 'white', border: '1px solid green', width: '250px', marginLeft: '25px' }} onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}>ADD TO ORDER</Button>
+    <Button 
+  variant="contained" 
+  sx={{
+    color: 'green',
+    backgroundColor: 'white',
+    border: '1px solid green',
+    width: '250px',
+    marginLeft: '25px',
+    '&:hover': {
+      backgroundColor: 'green', // Change background color on hover
+      color: 'white', // Change text color on hover
+    },
+  }} 
+  onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}
+>
+  ADD TO ORDER
+</Button>
           </div>
         ))}
       </div>
@@ -323,8 +339,23 @@ const cartItemStyle = css`
            <img id='imgcard2' src={item.src} alt={item.name} />
     <h2 id='textcard1'>{item.name}</h2>
     <h4 id='textcard2'>{item.price}</h4>
-    <Button variant="contained" style={{ color: 'green', backgroundColor: 'white', border: '1px solid green', width: '250px', marginLeft: '25px' }} onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}>ADD TO ORDER</Button>
-          </div>
+    <Button 
+  variant="contained" 
+  sx={{
+    color: 'green',
+    backgroundColor: 'white',
+    border: '1px solid green',
+    width: '250px',
+    marginLeft: '25px',
+    '&:hover': {
+      backgroundColor: 'green', // Change background color on hover
+      color: 'white', // Change text color on hover
+    },
+  }} 
+  onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}
+>
+  ADD TO ORDER
+</Button>          </div>
         ))}
       </div>
 
