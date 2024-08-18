@@ -631,7 +631,7 @@ const cartItemStyle = css`
   variant="contained" 
   startIcon={
     // بعرض عدد الاصناف يلي بالسله باللون النهدي
-    <Badge badgeContent={cart.length} color="secondary">
+    <Badge badgeContent={cart.length} color="error">
       <LocalMallIcon style={{ zoom: '250%', marginLeft: '5px' }}/>
     </Badge>
 
