@@ -287,13 +287,13 @@ table {
 }
 
 thead {
-    background: rgb(20, 168, 20);
+    background: rgba(146, 146, 146, 0.836);
     color: #ffffff;
 }
 
 thead th {
     padding: 12px;
-    border-bottom: 2px solid #0ab64c;
+    border-bottom: 2px solid #818181;
     text-align: left;
     font-weight: bold;
     font-size: 1.1em;
@@ -302,7 +302,7 @@ thead th {
 }
 
 thead th:hover {
-    background-color: #068306;
+    background-color: #159c15;
 }
 
 tbody tr:nth-child(even) {
