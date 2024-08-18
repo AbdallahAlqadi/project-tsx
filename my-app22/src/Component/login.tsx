@@ -78,7 +78,7 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
 
   return (
     <div className='b'>
-      <div style={{ marginTop: '90px' }} className={`form-container ${showPasswordChange ? 'expanded' : ''}`}>
+      <div style={{ marginTop: '160px' }} className={`form-container ${showPasswordChange ? 'expanded' : ''}`}>
         {!showPasswordChange ? (
           <>
             <h2 style={{ color: 'white' }}>Login</h2>
