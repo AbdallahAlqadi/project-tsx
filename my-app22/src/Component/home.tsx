@@ -235,18 +235,22 @@ const Home: React.FC = () => {
 
   // بتعدل على شكل سله التسوق
   const cartModalStyle = {
-    position: 'absolute' as const,
+    position: 'fixed',  // استخدم 'fixed' بدلاً من 'absolute' لتثبيت المودال في الشاشة
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 633,
-    maxHeight: '70vh',
-    overflowY: 'auto', 
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    width: '80%',  // استخدم نسبة مئوية لتصميم أكثر استجابة
+    maxWidth: 633,  // تحديد الحد الأقصى للعرض
+    maxHeight: '80vh',  // زيادة الحد الأقصى للارتفاع
+    overflowY: 'auto',
+    backgroundColor: '#fff',  // استخدم لون خلفية أبيض
+    borderRadius: '8px',  // إضافة زوايا مدورة لجعل المودال أكثر نعومة
+    border: '1px solid #ddd',  // تغيير لون الإطار إلى لون أكثر هدوءًا
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',  // استخدام ظل أخف وزيادة تأثير الظل
+    padding: '16px',  // زيادة التباعد الداخلي
+    zIndex: 1300,  // تأكد من أن المودال يظهر فوق جميع العناصر الأخرى
   };
+  
 
 
   // بتعدل على شكل جزئيه الدفع
@@ -255,14 +259,16 @@ const Home: React.FC = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '90%',
-    maxWidth: '500px',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: '8px',
+    width: '80%', // قلل العرض قليلاً لزيادة المساحة حول النموذج
+    maxWidth: '400px', // حدد عرض أقصى أصغر لتناسب شاشات أصغر
+    bgcolor: '#ffffff', // استخدم خلفية بيضاء لزيادة التباين
+    border: '1px solid #ccc', // استخدم لونًا أفتح للحدود
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)', // إضافة تظليل ناعم
+    p: 3, // قلل التباعد الداخلي قليلاً
+    borderRadius: '12px', // استخدم زاوية دائرية أكبر قليلاً
+    overflow: 'hidden', // لضمان عدم تجاوز المحتوى الحدود
   };
+  
   
 // السله animation
   const fadeIn = keyframes`
