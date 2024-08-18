@@ -614,7 +614,7 @@ const cartItemStyle = css`
      <Button 
   onClick={toggleCartModal} 
   style={{ 
-    background:'green' ,
+    background:'#018749' ,
     color: '#fff',
     borderRadius: '80px', 
     fontSize: '1.2rem', 
@@ -643,7 +643,7 @@ const cartItemStyle = css`
 
 {/* جزئيه table */}
       {/* Order History */}
-      <h2 >Order History</h2>
+      <h2  style={{color:"#008B8B"}}>Order History</h2>
       <table className="table" id="order-history-table" style={{ width: '90%', borderCollapse: 'collapse',marginLeft:'70px',"marginBottom":'150px'}}>
         <thead>
           <tr>

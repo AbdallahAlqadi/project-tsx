@@ -35,7 +35,7 @@ const App: React.FC = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {!isAuthPage && (
-        <AppBar style={{ backgroundColor: 'green', paddingTop: '15px', paddingBottom: '10px' }} className='appbar'>
+        <AppBar style={{ backgroundColor: '#018749', paddingTop: '15px', paddingBottom: '10px' }} className='appbar'>
           <Toolbar className='toolbar'>
             <img id='imgappbar' src={health2} alt="Health Logo" />
             <div className='links'>
