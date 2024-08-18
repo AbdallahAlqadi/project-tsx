@@ -270,7 +270,7 @@ const Home: React.FC = () => {
   };
   
   
-// السله animation
+// السله animation متعلق بالمنتجات التي في السله
   const fadeIn = keyframes`
   from {
     opacity: 0;
