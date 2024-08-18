@@ -79,92 +79,96 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
   return (
     <div className='b'>
       <div style={{ marginTop: '90px' }} className={`form-container ${showPasswordChange ? 'expanded' : ''}`}>
-        <h2 style={{ color: 'white' }}>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label style={{ marginLeft: '20px' }} htmlFor="email">Email</label>
-            <input
-              style={{ width: '533px', marginLeft: '20px' }}
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label style={{ marginLeft: '20px' }} htmlFor="password">Password</label>
-            <div className="password-input-container">
-              <input
-                style={{ width: '553px', marginLeft: '20px' }}
-                type={showPassword ? 'text' : 'password'}
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-              <button type="button" className="toggle-password-button" onClick={toggleShowPassword}>
-                {showPassword ? '👁️' : '🙈'}
-              </button>
-            </div>
-          </div>
-          <button type="submit" className="submit-button">Login</button>
-        </form>
-
-        <button
-          type="button"
-          onClick={() => setShowPasswordChange(true)}
-          className="change-password-button"
-        >
-          Change Password
-        </button>
-        <a style={{ marginLeft: '370px', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
-        {showPasswordChange && (
-          <form onSubmit={handlePasswordChange} className="change-password-form">
-            <h3 style={{ marginLeft: '20px', marginTop: '55px', marginBottom: '16px' }}>Change Password</h3>
-            <div className="form-group">
-              <label style={{ marginLeft: '20px' }} htmlFor="oldPassword">Old Password</label>
-              <div className="password-input-container">
+        {!showPasswordChange ? (
+          <>
+            <h2 style={{ color: 'white' }}>Login</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label style={{ marginLeft: '20px' }} htmlFor="email">Email</label>
                 <input
-                  style={{ width: '553px', marginLeft: '20px' }}
-                  type={showOldPassword ? 'text' : 'password'}
-                  id="oldPassword"
-                  value={oldPassword}
-                  onChange={(e) => setOldPassword(e.target.value)}
+                  style={{ width: '533px', marginLeft: '20px' }}
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
-                <button type="button" className="toggle-password-button" onClick={toggleShowOldPassword}>
-                  {showOldPassword ? '👁️' : '🙈'}
-                </button>
               </div>
-            </div>
-            <div className="form-group">
-              <label style={{ marginLeft: '20px' }} htmlFor="newPassword">New Password</label>
-              <div className="password-input-container">
-                <input
-                  style={{ marginLeft: '20px' }}
-                  type={showNewPassword ? 'text' : 'password'}
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                />
-                <button type="button" className="toggle-password-button" onClick={toggleShowNewPassword}>
-                  {showNewPassword ? '👁️' : '🙈'}
-                </button>
+              <div className="form-group">
+                <label style={{ marginLeft: '20px' }} htmlFor="password">Password</label>
+                <div className="password-input-container">
+                  <input
+                    style={{ width: '553px', marginLeft: '20px' }}
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <button type="button" className="toggle-password-button" onClick={toggleShowPassword}>
+                    {showPassword ? '👁️' : '🙈'}
+                  </button>
+                </div>
               </div>
-            </div>
-            <button type="submit" className="submit-button">Update Password</button>
+              <button type="submit" className="submit-button">Login</button>
+            </form>
             <button
               type="button"
-              onClick={() => setShowPasswordChange(false)}
-              className="cancel-button"
+              onClick={() => setShowPasswordChange(true)}
+              className="change-password-button"
             >
-              Cancel
+              Change Password
             </button>
-          </form>
+            <a style={{ marginLeft: '370px', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
+          </>
+        ) : (
+          <>
+            <h3 style={{ marginLeft: '20px', marginTop: '55px', marginBottom: '16px' }}>Change Password</h3>
+            <form onSubmit={handlePasswordChange} className="change-password-form">
+              <div className="form-group">
+                <label style={{ marginLeft: '20px' }} htmlFor="oldPassword">Old Password</label>
+                <div className="password-input-container">
+                  <input
+                    style={{ width: '553px', marginLeft: '20px' }}
+                    type={showOldPassword ? 'text' : 'password'}
+                    id="oldPassword"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    required
+                  />
+                  <button type="button" className="toggle-password-button" onClick={toggleShowOldPassword}>
+                    {showOldPassword ? '👁️' : '🙈'}
+                  </button>
+                </div>
+              </div>
+              <div className="form-group">
+                <label style={{ marginLeft: '20px' }} htmlFor="newPassword">New Password</label>
+                <div className="password-input-container">
+                  <input
+                    style={{ marginLeft: '20px' }}
+                    type={showNewPassword ? 'text' : 'password'}
+                    id="newPassword"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                  />
+                  <button type="button" className="toggle-password-button" onClick={toggleShowNewPassword}>
+                    {showNewPassword ? '👁️' : '🙈'}
+                  </button>
+                </div>
+              </div>
+              <button type="submit" className="submit-button">Update Password</button>
+              <button
+                type="button"
+                onClick={() => setShowPasswordChange(false)}
+                className="cancel-button"
+              >
+                Cancel
+              </button>
+            </form>
+          </>
         )}
       </div>
       {alertMessage && <MessageAlert message={alertMessage} onClose={closeAlert} />}
