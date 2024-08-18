@@ -43,6 +43,8 @@ interface Order {
 }
 
 
+
+//كود خاص بpayment
 const validationSchema = yup.object({
   cardNumber: yup
     .string()
@@ -65,15 +67,16 @@ const validationSchema = yup.object({
 });
 
 
-
+//مسؤوله عن العمليات يلي بتصير في السله
 type ActionType = 
   | { type: 'ADD_TO_CART'; payload: Item }
   | { type: 'REMOVE_FROM_CART'; payload: number }
   | { type: 'UPDATE_QUANTITY'; payload: { index: number; quantity: number } }
   | { type: 'CLEAR_CART' };
 
-const initialState: Item[] = [];
 
+  //مسؤول عن عمليات الزياده والنقصان والحذف في كل عنصر
+const initialState: Item[] = [];
 const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => void; onDecrease: () => void }> = ({ item, onRemove, onIncrease, onDecrease }) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ddd', borderRadius: '8px', padding: '8px', marginBottom: '8px' }}>
@@ -91,7 +94,7 @@ const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => v
 
 
 
-// جزئيه الزياده والنقصان والاضافه الى السله
+// تتحكم في كيفية إضافة، إزالة، تحديث كمية العناصر، أو إفراغ سلة التسوق
 function reducer(state: Item[], action: ActionType): Item[] {
   switch (action.type) {
     case 'ADD_TO_CART':
@@ -116,9 +119,11 @@ function reducer(state: Item[], action: ActionType): Item[] {
   }
 }
 
+
+//الكود الرئيسي
 const Home: React.FC = () => {
 
-
+//بتاكد من صحه البيانات الخاصه ب payment
   const formik = useFormik({
     initialValues: {
       cardNumber: '',
@@ -126,40 +131,56 @@ const Home: React.FC = () => {
       cvv: '',
     },
     validationSchema: validationSchema,
+    //تستدعى اذا البيانات صحيحه
     onSubmit: (values) => {
       confirmPayment(values);
     },
   });
+
+  //بتنزلني على جزئيه card
   const cardsRef = React.useRef<HTMLDivElement>(null);
   const scrollToCards = () => {
     if (cardsRef.current) {
       cardsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-
+//cart:  حاله عربه التسوق,dispatch:بتقوم بالتعديل على بيانات عربه التسوق
   const [cart, dispatch] = useReducer(reducer, initialState);
+  //تمثل قائمه الطلبات
   const [orders, setOrders] = useState<Order[]>([]);
+
+  //خاص بعدد الطلبات
   const [orderCount, setOrderCount] = useState(0);
+  //لفتح  واغلاق عربه التسوق
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  //خاصه ب message
   const [message, setMessage] = useState<string | null>(null);
+  //متعلقه ب كود الخصم
   const [discountCode, setDiscountCode] = useState('');
+  //متعلقه بقيمه الخصم
   const [discountAmount, setDiscountAmount] = useState(0);
+  //متعلقه بفتح واغلاق جزئيه الدفع
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
+// isLoggedIn  true or false  بتحقق من قيمه
   const isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'));
-
+  // بتضيف card على السله
   const addToCart = (item: Item) => {
+    //اذا ما في اي حساب بطبع هاي الجمله
     if (!isLoggedIn) {
       alert('Please log in to add items to your cart.');
       return;
     }
+    //غير هيك بضيف على السله
     dispatch({ type: 'ADD_TO_CART', payload: item });
   };
 
+  // بعمل تحديث على عدد المنتجات التي في السله
   const updateQuantity = (index: number, quantity: number) => {
     dispatch({ type: 'UPDATE_QUANTITY', payload: { index, quantity } });
   };
 
+// غير هيك بفتح جزئيه الدفع Your cart is empty.  بتاكد اذا السله فاضيه او لا  بحال كانت فضيه بطبع
   const placeOrder = () => {
     if (cart.length === 0) {
       setMessage('Your cart is empty.');
@@ -167,35 +188,52 @@ const Home: React.FC = () => {
     }
       setIsPaymentModalOpen(true);
   };
+
+  // تاخذ المعلومات المدخله في عمليه الدفع
   const confirmPayment = (values: { cardNumber: string; expiryDate: string; cvv: string }) => {
+// رقم الفاتوره
     const orderNumber = orderCount + 1;
+    // الوقت الحالي
     const currentTime = new Date().toLocaleString();
+    // مجموع الفاتوره
     const totalAmount = cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0);
+    // القيمه النهائيه بعد الخصم
     const finalAmount = totalAmount - discountAmount;
 
   
-    // Ensure finalAmount is not negative
+    // بتعدل على المبلغ النهائي بحيث كان بالسالب تخليه 0
     const adjustedFinalAmount = Math.max(finalAmount, 0);
   
+
+    // بقوم بانشاء طلب جديد
     const aggregatedOrder: Order = {
       orderNumber,
       orderTime: currentTime,
       items: [...cart],
       totalAmount: adjustedFinalAmount
     };
-  
+
+    // يتم تحديث قائمة الطلبات السابقة بإضافة الطلب الجديد في حال تم الطلب بشكل صحيح
     setOrders(prevOrders => [...prevOrders, aggregatedOrder]);
+    // بعدل على رقم الطلب
     setOrderCount(orderNumber);
+    // بفضي السله
     dispatch({ type: 'CLEAR_CART' });
+    // بغلق السله
     setIsCartModalOpen(false);
+    // بغلق جزئيه الدفع
     setIsPaymentModalOpen(false);  
+    // إظهار رسالة تؤكد إتمام الطلب بنجاح مع عرض المبلغ النهائي بعد الخصم
     setMessage(`Order placed successfully! Final amount after discount: ${adjustedFinalAmount.toFixed(2)} JD`);
   };
 
+
+  //بتغلق السله اذا فاتحه
   const toggleCartModal = () => {
     setIsCartModalOpen(!isCartModalOpen);
   };
 
+  // بتعدل على شكل سله التسوق
   const cartModalStyle = {
     position: 'absolute' as const,
     top: '50%',
@@ -210,6 +248,8 @@ const Home: React.FC = () => {
     p: 4,
   };
 
+
+  // بتعدل على شكل جزئيه الدفع
   const paymentModalStyle = {
     position: 'absolute',
     top: '50%',
@@ -224,7 +264,7 @@ const Home: React.FC = () => {
     borderRadius: '8px',
   };
   
-// السله
+// السله animation
   const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -233,7 +273,7 @@ const Home: React.FC = () => {
     opacity: 1;
   }
 `;
-
+// animation
 const slideIn = keyframes`
   from {
     transform: translateY(20px);
@@ -246,11 +286,13 @@ const slideIn = keyframes`
 `;
 
 // Styles for modal
+// animation
 const modalStyle = css`
   animation: ${fadeIn} 0.3s ease-in;
 `;
 
 // Styles for cart item
+// animation
 const cartItemStyle = css`
   animation: ${slideIn} 0.5s ease-out;
 `;
@@ -294,6 +336,7 @@ const cartItemStyle = css`
           { id: 'plate6', name: 'Grilled chicken', price: '4.00JD', src: plate6 },
           { id: 'plate7', name: 'Pancakes', price: '3.00JD', src: plate7 },
           { id: 'plate8', name: 'Fruit Salad', price: '5.00JD', src: plate8 }
+          // بتنشا كل card
         ].map((item, index) => (
           <div id='card' key={index}>
            <img id='imgcard' src={item.src} alt={item.name} />
@@ -362,6 +405,7 @@ const cartItemStyle = css`
       {/* Modal for Shopping Cart */}
       <Modal
       open={isCartModalOpen}
+      // بتغلق السله
       onClose={toggleCartModal}
       aria-labelledby="cart-modal-title"
       aria-describedby="cart-modal-description"
@@ -369,6 +413,7 @@ const cartItemStyle = css`
       <Box sx={{ ...cartModalStyle }}>
         <div style={{ color: 'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px' }}>
           <h2 id="cart-modal-title">Shopping Cart</h2>
+          {/* كبسه اغلاق السله */}
           <Button 
             onClick={toggleCartModal} 
             style={{ color: '#ff4d4d', fontWeight: 'bold' }} 
@@ -376,11 +421,16 @@ const cartItemStyle = css`
           >
             Close
           </Button>
+
         </div>
         <div id="cart-modal-description" style={{ padding: '16px' }}>
+          {/* عباره عن شرط بحال وجود اصناف في السله او لا */}
           {cart.length === 0 ? (
+            // بتنفذ بحال كانت السله فاضيه
             <p style={{ color: '#555', textAlign: 'center' }}>Your cart is empty.</p>
-          ) : (
+          ) :
+          // بتنفذ بحال كانت السله مليانه 
+          (
             cart.map((item, index) => (
               <Box 
                 key={index} 
@@ -393,6 +443,7 @@ const cartItemStyle = css`
                 }}
               >
                 <CartItem
+                // جزئيه الزياده والنقصان والحذف في عدد كل منتج
                   item={item}
                   onRemove={() => dispatch({ type: 'REMOVE_FROM_CART', payload: index })}
                   onIncrease={() => updateQuantity(index, (item.quantity ?? 1) + 1)}
@@ -401,6 +452,7 @@ const cartItemStyle = css`
               </Box>
             ))
           )}
+          {/* مكان كتابه كود الخصم */}
           <TextField
             label="Discount Code"
             variant="outlined"
@@ -408,12 +460,15 @@ const cartItemStyle = css`
             onChange={(e) => setDiscountCode(e.target.value)}
             style={{ marginBottom: '16px', width: '100%',marginTop:'20px' }}
           />
+          {/* كبسه الخصم فيها شرط */}
           <Button
             onClick={() => {
+              // بحال دخلت 1234 بتنفذ الخصم
               if (discountCode === '1234') {
                 setDiscountAmount(2); // Apply a fixed discount
                 setMessage('Discount code applied successfully!');
               } else {
+                // غير هيك ما بتنفذ الخصم
                 setDiscountAmount(0);
                 setMessage('Invalid discount code.');
               }
@@ -422,15 +477,21 @@ const cartItemStyle = css`
             variant="contained"
           >
             Apply Discount
+
           </Button>
+
+          {/* والسعر بعد الخصم معلومات المجموع وكميه الخصم */}
           <div style={{ marginBottom: '16px' }}>
             <h3>Total Amount: {cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0).toFixed(2)} JD</h3>
             <h3>Discount Amount: {discountAmount.toFixed(2)} JD</h3>
             <h3>Final Amount: {(cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0) - discountAmount).toFixed(2)} JD</h3>
           </div>
+
+          {/* كبسه place order */}
           <Button
             onClick={() => {
               placeOrder();
+              // اغلاق السله
               toggleCartModal(); 
             }}
             style={{ backgroundColor: '#28a745', color: '#fff', borderRadius: '18px', fontSize: 'large' }}
@@ -438,6 +499,7 @@ const cartItemStyle = css`
           >
             Place Order
           </Button>
+          {/* كود خاص بعرض المسجات المتعلقه بالسله */}
           {message && (
             <div 
               style={{ 
@@ -461,18 +523,25 @@ const cartItemStyle = css`
 
 {/* payment */}
 <Modal
+// بحدد ااذا السله فاتحه ام لا
         open={isPaymentModalOpen}
+        // تستدعى عند اغلاق جزئيه الدفع
         onClose={() => setIsPaymentModalOpen(false)}
         aria-labelledby="modal-payment-title"
         aria-describedby="modal-payment-description"
       >
+        {/* مسج الدفع */}
         <Box sx={paymentModalStyle}>
+          
+          {/* ايقونه الاغلاق */}
           <IconButton
             onClick={() => setIsPaymentModalOpen(false)}
             sx={{ position: 'absolute', top: 8, right: 8 }}
           >
             <CloseIcon />
           </IconButton>
+
+          
           <h2 id="modal-payment-title">Payment Information</h2>
           <form onSubmit={formik.handleSubmit}>
             <TextField
