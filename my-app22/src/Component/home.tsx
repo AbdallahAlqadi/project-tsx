@@ -235,20 +235,20 @@ const Home: React.FC = () => {
 
   // بتعدل على شكل سله التسوق
   const cartModalStyle = {
-    position: 'fixed',  // استخدم 'fixed' بدلاً من 'absolute' لتثبيت المودال في الشاشة
+    position: 'fixed',  
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80%',  // استخدم نسبة مئوية لتصميم أكثر استجابة
-    maxWidth: 633,  // تحديد الحد الأقصى للعرض
-    maxHeight: '80vh',  // زيادة الحد الأقصى للارتفاع
+    width: '80%',  
+    maxWidth: 633,  
+    maxHeight: '80vh',  
     overflowY: 'auto',
-    backgroundColor: '#fff',  // استخدم لون خلفية أبيض
-    borderRadius: '8px',  // إضافة زوايا مدورة لجعل المودال أكثر نعومة
-    border: '1px solid #ddd',  // تغيير لون الإطار إلى لون أكثر هدوءًا
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',  // استخدام ظل أخف وزيادة تأثير الظل
-    padding: '16px',  // زيادة التباعد الداخلي
-    zIndex: 1300,  // تأكد من أن المودال يظهر فوق جميع العناصر الأخرى
+    backgroundColor: '#fff',  
+    borderRadius: '8px', 
+    border: '1px solid #ddd',  
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', 
+    padding: '16px', 
+    zIndex: 1300,  
   };
   
 
@@ -259,14 +259,14 @@ const Home: React.FC = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80%', // قلل العرض قليلاً لزيادة المساحة حول النموذج
-    maxWidth: '400px', // حدد عرض أقصى أصغر لتناسب شاشات أصغر
-    bgcolor: '#ffffff', // استخدم خلفية بيضاء لزيادة التباين
-    border: '1px solid #ccc', // استخدم لونًا أفتح للحدود
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)', // إضافة تظليل ناعم
-    p: 3, // قلل التباعد الداخلي قليلاً
-    borderRadius: '12px', // استخدم زاوية دائرية أكبر قليلاً
-    overflow: 'hidden', // لضمان عدم تجاوز المحتوى الحدود
+    width: '80%',
+    maxWidth: '400px',
+    bgcolor: '#ffffff', 
+    border: '1px solid #ccc',
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+    p: 3,
+    borderRadius: '12px', 
+    overflow: 'hidden',
   };
   
   
@@ -357,8 +357,8 @@ const cartItemStyle = css`
     width: '250px',
     marginLeft: '25px',
     '&:hover': {
-      backgroundColor: 'green', // Change background color on hover
-      color: 'white', // Change text color on hover
+      backgroundColor: 'green', 
+      color: 'white', 
     },
   }} 
   onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}
@@ -397,8 +397,8 @@ const cartItemStyle = css`
     width: '250px',
     marginLeft: '25px',
     '&:hover': {
-      backgroundColor: 'green', // Change background color on hover
-      color: 'white', // Change text color on hover
+      backgroundColor: 'green',
+      color: 'white',
     },
   }} 
   onClick={() => addToCart({ name: item.name, price: item.price, image: item.src })}
@@ -599,7 +599,7 @@ const cartItemStyle = css`
               error={formik.touched.cvv && Boolean(formik.errors.cvv)}
               helperText={formik.touched.cvv && formik.errors.cvv}
               margin="normal"
-              inputProps={{ maxLength: 3 }} // Adjust as needed for formatting
+              inputProps={{ maxLength: 3 }}
             />
             {/* كبسه تاكيد الدفع */}
             <Button color="primary" variant="contained" fullWidth type="submit" style={{ marginTop: '16px' }}>
@@ -614,7 +614,7 @@ const cartItemStyle = css`
      <Button 
   onClick={toggleCartModal} 
   style={{ 
-    background:'green' , // Use 'background' instead of 'backgroundColor'
+    background:'green' ,
     color: '#fff',
     borderRadius: '80px', 
     fontSize: '1.2rem', 
@@ -623,7 +623,7 @@ const cartItemStyle = css`
     right: '15px', 
     animation: 'bounce 2s infinite',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', 
-    transition: 'background-color 0.3s ease, transform 0.3s ease', // Smooth transition
+    transition: 'background-color 0.3s ease, transform 0.3s ease',
     justifyContent: 'center',
     width: '82px',
     height: '78px'
