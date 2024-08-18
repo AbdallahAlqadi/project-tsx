@@ -541,9 +541,11 @@ const cartItemStyle = css`
             <CloseIcon />
           </IconButton>
 
-          
+
           <h2 id="modal-payment-title">Payment Information</h2>
+
           <form onSubmit={formik.handleSubmit}>
+            {/* input: Card number */}
             <TextField
               fullWidth
               id="cardNumber"
@@ -560,6 +562,9 @@ const cartItemStyle = css`
                 e.target.value = e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
               }}
             />
+
+
+       {/* input: Date */}
             <TextField
               fullWidth
               id="expiryDate"
@@ -576,6 +581,8 @@ const cartItemStyle = css`
                 e.target.value = e.target.value.replace(/^(\d{2})(\d{0,2})/, '$1/$2');
               }}
             />
+
+           {/* input: cvv */}
             <TextField
               fullWidth
               id="cvv"
@@ -588,6 +595,7 @@ const cartItemStyle = css`
               margin="normal"
               inputProps={{ maxLength: 3 }} // Adjust as needed for formatting
             />
+            {/* كبسه تاكيد الدفع */}
             <Button color="primary" variant="contained" fullWidth type="submit" style={{ marginTop: '16px' }}>
               Confirm Payment
             </Button>
@@ -596,7 +604,7 @@ const cartItemStyle = css`
       </Modal>
 
 
-     {/* icon shop */}
+     {/* ايقون السله*/}
      <Button 
   onClick={toggleCartModal} 
   style={{ 
@@ -616,13 +624,18 @@ const cartItemStyle = css`
   }} 
   variant="contained" 
   startIcon={
+    // بعرض عدد الاصناف يلي بالسله باللون النهدي
     <Badge badgeContent={cart.length} color="secondary">
       <LocalMallIcon style={{ zoom: '250%', marginLeft: '5px' }}/>
     </Badge>
+
   }
 >
 </Button>
 
+
+
+{/* جزئيه table */}
       {/* Order History */}
       <h2 >Order History</h2>
       <table className="table" id="order-history-table" style={{ width: '90%', borderCollapse: 'collapse',marginLeft:'70px',"marginBottom":'150px'}}>
@@ -658,8 +671,8 @@ const cartItemStyle = css`
         </tbody>
       </table>
 
-      {/* Message Box */}
-      <Snackbar open={Boolean(message)} autoHideDuration={6000} onClose={() => setMessage(null)}>
+     {/* حاض بعرض المسجات في اسفل الصفحه */}
+      <Snackbar open={Boolean(message)} autoHideDuration={2000} onClose={() => setMessage(null)}>
         <Alert onClose={() => setMessage(null)} severity="info" sx={{ width: '100%' }}>
           {message}
         </Alert>
