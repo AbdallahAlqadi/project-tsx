@@ -7,6 +7,8 @@ interface MessageAlertProps {
   onClose: () => void;
 }
 
+//كود message in login
+
 const MessageAlert: React.FC<MessageAlertProps> = ({ message, onClose }) => {
   return (
     <div className="message-alert">
