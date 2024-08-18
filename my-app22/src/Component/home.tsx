@@ -660,7 +660,7 @@ const cartItemStyle = css`
             </tr>
           ) : (
             orders.map(order => (
-              <tr key={order.orderNumber}>
+              <tr style={{'marginLeft':'20px'}} key={order.orderNumber}>
                 <td>{order.orderNumber}</td>
                 <td>{order.orderTime}</td>
                 <td>
