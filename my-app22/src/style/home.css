@@ -65,6 +65,7 @@ margin-top: 60px;
     -webkit-background-clip: text;
     color: transparent; 
     margin-left: 520px;
+    animation: fadeIn 2s ease-in;
 }
 
 
@@ -167,78 +168,11 @@ margin-top: 60px;
     margin-left: 10px;
 }
 
-.orders {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-family: Arial, sans-serif;
-}
-
-.orders th, .orders td {
-    padding-left: 20px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    font-size: 16px;
-    color: #333;
-}
-
-.orders th {
-    background-color: #e0e0e0;
-    color: #000;
-    font-weight: bold;
-}
-
-.orders tr:hover {
-    background-color: #f0f0f0;
-    transition: background-color 0.3s ease;
-}
-
-.orders tbody tr:last-child td {
-    border-bottom: none;
-}
 
 @keyframes tableGlow {
     0% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
     50% { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
     100% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
-}
-
-.orders table {
-    animation: tableGlow 3s infinite;
-}
-
-.orders h2 {
-    margin-bottom: 30px;
-    font-size: 2rem;
-    color: #089c3a;
-    font-weight: 700;
-}
-
-.MuiButton-root {
-    font-size: 0.875em;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.MuiButton-contained {
-    box-shadow: none;
-}
-
-.MuiButton-contained:hover {
-    opacity: 0.9;
-    transform: scale(1.05);
-}
-
-.MuiButton-contained-secondary {
-    background-color: #ff5252;
-    color: #ffffff;
-}
-
-.MuiButton-contained-custom {
-    background-color: #26cc00;
-    color: #ffffff;
 }
 
 p {
@@ -252,27 +186,6 @@ p {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-#text1 {
-    animation: fadeIn 2s ease-in;
-}
-
-.shop {
-    position: fixed;
-    bottom: 15px;
-    right: 20px;
-    background-color: #068306;
-    padding: 12px;
-    border-radius: 25px;
-    zoom: 150%;
-    transition: background-color 0.5s ease, transform 0.3s ease;
-}
-
-.shop:hover {
-    background-color: #0bb313;
-    cursor: pointer;
-    transform: scale(1.1);
 }
 
 /* Table*/
@@ -331,32 +244,6 @@ tbody td {
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-
-
-/* Shopping Cart Styles */
-.cart-item {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.quantity-input {
-    width: 50px;
-    margin-left: 10px;
-}
-
-.payment-section {
-    margin-top: 20px;
-}
-
-.payment-section input {
-    display: block;
-    margin: 5px 0;
-    padding: 8px;
-    width: calc(100% - 20px);
-}
-
 
 @keyframes bounce {
     0% { transform: translateY(0); }
