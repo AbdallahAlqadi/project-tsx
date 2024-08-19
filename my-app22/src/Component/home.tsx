@@ -51,6 +51,7 @@ const validationSchema = yup.object({
     .string()
     .required('Card Number is required')
     .matches(/^[0-9]+$/, 'Card Number must contain only numbers'), // يحقق أن رقم البطاقة يحتوي على أرقام فقط
+    
     expiryDate: yup
     .string()
     .required('Expiry Date is required')
