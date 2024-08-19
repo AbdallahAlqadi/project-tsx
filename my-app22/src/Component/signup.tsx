@@ -2,12 +2,14 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style/login,reg.css';
 
+// معلومات المخله في form
 interface FormData {
   username: string;
   email: string;
   password: string;
 }
 
+// القيم المخزنه في localStorage
 interface User {
   username: string;
   email: string;
@@ -15,29 +17,34 @@ interface User {
 }
 
 const RegisterForm: React.FC = () => {
+  //بحتوي على البيانات المدخله
   const [formData, setFormData] = useState<FormData>({
     username: '',
     email: '',
     password: ''
   });
+  // بتعرض رساله بعد التسجيل
   const [alertMessage, setAlertMessage] = useState<string>('');
+  // بنقلني لصفحه login
   const navigate = useNavigate();
-
+// مسؤول عن اي تغير بحدث linput
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
+//بتاكد اذا email موجود او لا
     const existingUsers: User[] = JSON.parse(localStorage.getItem('users') || '[]');
 
     const userExists = existingUsers.some(user => user.email === formData.email);
-    
+    //بحال كان email موجود
     if (userExists) {
       setAlertMessage('User with this email already exists.');
       return;
     }
+    //بحال كان email غير موجود
 
     existingUsers.push(formData);
 
