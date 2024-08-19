@@ -248,12 +248,13 @@ p {
 }
 
 /* Animations */
+/* الاختفاء والظهور */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-#text1, #text2, #text3 {
+#text1 {
     animation: fadeIn 2s ease-in;
 }
 
@@ -315,6 +316,7 @@ tbody tr:nth-child(odd) {
 
 tbody tr {
     transition: background-color 0.3s ease, transform 0.3s ease;
+    
 }
 
 tbody tr:hover {
