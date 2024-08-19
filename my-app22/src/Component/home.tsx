@@ -27,6 +27,7 @@ import z8 from '../img/z8.jpeg';
 import z7 from '../img/z7.jpeg';
 import z9 from '../img/z9.jpeg';
 
+// يمثل تفاصيل كل عنصر
 interface Item {
   name: string;
   price: string;
@@ -34,7 +35,7 @@ interface Item {
   image?: string; 
 }
 
-
+// يمثل تفاصيل الطلب نفسه
 interface Order {
   orderNumber: number;
   orderTime: string;
@@ -50,15 +51,14 @@ const validationSchema = yup.object({
     .string()
     .required('Card Number is required')
     .matches(/^[0-9]+$/, 'Card Number must contain only numbers'), // يحقق أن رقم البطاقة يحتوي على أرقام فقط
-  expiryDate: yup
+    expiryDate: yup
     .string()
     .required('Expiry Date is required')
     .test('expiryDate', 'Expiry Date is not valid', function(value) {
       if (!value) return false;
       const parsedDate = parse(value, 'MM/yy', new Date());
-      // يتحقق من أن الشهر والسنة في المستقبل أو الآن
-      return parsedDate.getFullYear() > new Date().getFullYear() || 
-             (parsedDate.getFullYear() === new Date().getFullYear() && parsedDate.getMonth() >= new Date().getMonth());
+      const today = new Date();
+      return parsedDate > today;
     }),
   cvv: yup
     .string()
@@ -67,7 +67,7 @@ const validationSchema = yup.object({
 });
 
 
-//مسؤوله عن العمليات يلي بتصير في السله
+// بحتوي على نوع العمليات يلي بتصير داخل السلله
 type ActionType = 
   | { type: 'ADD_TO_CART'; payload: Item }
   | { type: 'REMOVE_FROM_CART'; payload: number }
@@ -75,7 +75,7 @@ type ActionType =
   | { type: 'CLEAR_CART' };
 
 
-  //مسؤول عن عمليات الزياده والنقصان والحذف في كل عنصر
+  //مسؤول عن عمليات الزياده والنقصان والحذف والصوره في كل عنصر
 const initialState: Item[] = [];
 const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => void; onDecrease: () => void }> = ({ item, onRemove, onIncrease, onDecrease }) => {
   return (
@@ -94,24 +94,33 @@ const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => v
 
 
 
-// تتحكم في كيفية إضافة، إزالة، تحديث كمية العناصر، أو إفراغ سلة التسوق
+
 function reducer(state: Item[], action: ActionType): Item[] {
+  // تعمل حسب نوع action
   switch (action.type) {
+    //جزئيه add بحال كان المنتج بالسله بتزيد عدده غير هيك بتضيفه على السله
     case 'ADD_TO_CART':
       const existingItemIndex = state.findIndex(item => item.name === action.payload.name);
+      // إذا كان existingItemIndex أكبر من -1، فهذا يعني أن العنصر موجود بالفعل في سلة 
       if (existingItemIndex > -1) {
         return state.map((item, index) => 
           index === existingItemIndex ? { ...item, quantity: (item.quantity ?? 0) + 1 } : item
         );
-      } else {
+
+      } 
+      // إضافة العنصر إذا لم يكن موجودًا
+      else {
         return [...state, { ...action.payload, quantity: 1 }];
       }
+      // تقوم بإزالة العنصر من السلة
     case 'REMOVE_FROM_CART':
       return state.filter((_, index) => index !== action.payload);
+      // تقوم بتحديث كمية العنصر
     case 'UPDATE_QUANTITY':
       return state.map((item, index) =>
         index === action.payload.index ? { ...item, quantity: action.payload.quantity } : item
       );
+      // إفراغ السلة
     case 'CLEAR_CART':
       return [];
     default:
@@ -144,6 +153,7 @@ const Home: React.FC = () => {
       cardsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
 //cart:  حاله عربه التسوق,dispatch:بتقوم بالتعديل على بيانات عربه التسوق
   const [cart, dispatch] = useReducer(reducer, initialState);
   //تمثل قائمه الطلبات

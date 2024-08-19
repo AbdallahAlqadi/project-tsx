@@ -3,27 +3,38 @@ import { useNavigate } from 'react-router-dom';
 import MessageAlert from '../Component/messagealert';
 import '../style/login,reg.css';
 
+// شكل البيانات المدخله
 interface FormData {
   email: string;
   password: string;
 }
-
+// بتحدد شكل البيانات الموجوده في localStorage
 interface StoredData {
   email: string;
   password: string;
 }
 
 const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setIsLoggedIn }) => {
+  // بتم تخزين email ,password
   const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
+  // يتم تخزين الباسورد الجديد
   const [newPassword, setNewPassword] = useState<string>('');
+    // يتم تخزين الباسورد القديم
   const [oldPassword, setOldPassword] = useState<string>('');
+  // بتتحكم بظهور  شاشه login or changepassword
   const [showPasswordChange, setShowPasswordChange] = useState<boolean>(false);
+    // بتتحكم بظهور واخفاء الباسورد
   const [showPassword, setShowPassword] = useState<boolean>(false);
+      // بتتحكم بظهور واخفاء الباسورد
   const [showOldPassword, setShowOldPassword] = useState<boolean>(false);
+      // بتتحكم بظهور واخفاء الباسورد
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
+  // لتغير المسج
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
+
+  // بتحكم بوقت اخفاء MessageAlert
   useEffect(() => {
     if (alertMessage) {
       const timer = setTimeout(() => {
@@ -33,12 +44,15 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
     }
   }, [alertMessage]);
 
+
+  // مسؤوله عن تغير القيم داخل input
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    // بقارن اذا القيمه المدخله موجوده ب localstorge
     const users: StoredData[] = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find(u => u.email === formData.email && u.password === formData.password);
     if (user) {
@@ -46,18 +60,24 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
       setIsLoggedIn(true);
       navigate('/home');
     } else {
+      
       setAlertMessage('Invalid email or password');
     }
   };
 
+  // مسؤوله عن تغير الباسورد
   const handlePasswordChange = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    // بتحقق اذا اذا الباسورد القديم او الجديد غير مدخل
     if (!oldPassword || !newPassword) {
       setAlertMessage('Please enter both the old and new passwords.');
       return;
     }
+    // جلب المستخدمين المخزنين في localStorage
     const users: StoredData[] = JSON.parse(localStorage.getItem('users') || '[]');
+    // البحث عن المستخدم بناءً على الإيميل وكلمة المرور القديمة
     const userIndex = users.findIndex(u => u.email === formData.email && u.password === oldPassword);
+    // إذا تم العثور على المستخدم 
     if (userIndex !== -1) {
       users[userIndex].password = newPassword;
       localStorage.setItem('users', JSON.stringify(users));
@@ -65,20 +85,25 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
       setNewPassword('');
       setOldPassword('');
       setShowPasswordChange(false);
-    } else {
+      
+    } 
+    // إذا لم يتم العثور على المستخدم 
+    else {
       setAlertMessage('Old password is incorrect');
     }
   };
 
+  // مسؤولات عن اظهار واخفاء كلمه المرور
   const toggleShowPassword = () => setShowPassword(!showPassword);
   const toggleShowOldPassword = () => setShowOldPassword(!showOldPassword);
   const toggleShowNewPassword = () => setShowNewPassword(!showNewPassword);
-
+  //    بإغلاق رسالة التنبيه أو التحذير
   const closeAlert = () => setAlertMessage(null);
 
   return (
     <div className='b'>
       <div style={{ marginTop: '160px' }} className={`form-container ${showPasswordChange ? 'expanded' : ''}`}>
+         {/* شرط بتحكم بعرض شاشه login or change password */}
         {!showPasswordChange ? (
           <>
             <h2 style={{ color: 'white' }}>Login</h2>
@@ -123,7 +148,9 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
             </button>
             <a style={{ marginLeft: '370px', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
           </>
-        ) : (
+
+        )
+         : (
           <>
             <h3 style={{ marginLeft: '20px', marginTop: '55px', marginBottom: '16px' }}>Change Password</h3>
             <form onSubmit={handlePasswordChange} className="change-password-form">
@@ -171,6 +198,7 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
           </>
         )}
       </div>
+      {/* جزئيه التحكم ب messagealert */}
       {alertMessage && <MessageAlert message={alertMessage} onClose={closeAlert} />}
     </div>
   );
