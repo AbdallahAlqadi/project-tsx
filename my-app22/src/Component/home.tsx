@@ -83,9 +83,9 @@ const CartItem: React.FC<{ item: Item; onRemove: () => void; onIncrease: () => v
       {item.image && <img src={item.image} alt={item.name} style={{ width: '50px', height: '50px', objectFit: 'cover', marginRight: '8px' }} />}
       <div style={{ flex: 1 }}>
         <span>{item.name} - {item.price} - Quantity: </span>
-        <Button onClick={onDecrease} style={{ color: 'orange' }}>-</Button>
+        <Button onClick={onDecrease} style={{ color: 'green' }}>-</Button>
         <span>{item.quantity || 1}</span>
-        <Button onClick={onIncrease} style={{ color: 'orange' }}>+</Button>
+        <Button onClick={onIncrease} style={{ color: 'green'}}>+</Button>
         <Button onClick={onRemove} style={{ color: 'red' }}>Remove</Button>
       </div>
     </div>
@@ -640,7 +640,7 @@ const cartItemStyle = css`
   }} 
   variant="contained" 
   startIcon={
-    // بعرض عدد الاصناف يلي بالسله باللون النهدي
+    // بعرض عدد الاصناف يلي بالسله باللون الاحمر
     <Badge badgeContent={cart.length} color="error">
       <LocalMallIcon style={{ zoom: '250%', marginLeft: '5px' }}/>
     </Badge>

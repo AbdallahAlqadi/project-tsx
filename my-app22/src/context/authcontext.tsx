@@ -1,4 +1,5 @@
 // src/context/AuthContext.tsx
+// مسوول عن عمل login or logout
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface AuthContextType {
