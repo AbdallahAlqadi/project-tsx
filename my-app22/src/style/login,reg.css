@@ -165,11 +165,9 @@ input {
 
 
 
-@media only screen and(min-width:0) and (max-width:575px) {
-  
 
-    .form-container{
-      width: 1%;
-    }
-  
-}
+
+/* responsive */
+
+
+
