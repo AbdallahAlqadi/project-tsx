@@ -165,9 +165,11 @@ input {
 
 
 
-@media screen and(min-width:0) and (max-width:575px) {
+@media only screen and(min-width:0) and (max-width:575px) {
   
-  body{
-    background-color: #056a04;
-  }
+
+    .form-container{
+      width: 1%;
+    }
+  
 }
