@@ -251,3 +251,15 @@ tbody td {
     100% { transform: translateY(0); }
 }
 
+
+
+
+
+
+/* respnsive */
+
+@media screen and (min-width: 0px) and (max-width: 575px) {
+
+    
+    
+}
