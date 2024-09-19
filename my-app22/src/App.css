@@ -15,14 +15,14 @@ html, body {
 
 /* Style for the AppBar */
 /* AppBar Styles */
-/* AppBar Styles */
+
 .appbar {
   height: 110px;
   display: flex;
   align-items: center;
-  padding: 0 20px; /* Adjust the padding as needed */
-  box-shadow: none; /* Remove default shadow if not needed */
-  /* Ensure background color is applied */
+  padding: 0 20px; 
+  box-shadow: none; 
+  
 }
 
 .appbar .toolbar {
@@ -51,11 +51,11 @@ html, body {
 }
 
 .appbar .links a {
-  color: white; /* Link color */
-  margin-left: 20px; /* Spacing between links */
-  text-decoration: none; /* Remove underline from links */
-  font-size: 18px; /* Adjust font size as needed */
-  font-weight: bold; /* Make the text bold */
+  color: white; 
+  margin-left: 20px; 
+  text-decoration: none; 
+  font-size: 18px; 
+  font-weight: bold;
 }
 
 .appbar .links a:hover {
