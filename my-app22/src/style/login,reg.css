@@ -170,6 +170,7 @@ input {
 /* 575 */
 @media screen  and  (max-width: 575px) {
 
+  
   .form-container{
     width: 60%;
   }
@@ -204,4 +205,14 @@ zoom: 115%;
     width: 60%;
   }
     
+
+  .gridregchange{
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .gridregchange .regbutton{
+    margin-top: 19%;
+    font-size: small;
+    margin-right: 40px;
+  }
 }
