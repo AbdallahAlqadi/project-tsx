@@ -202,6 +202,7 @@ zoom: 115%;
 @media screen and (min-width: 576px) and  (max-width: 767px) {
 
   /* login and changepassword */
+
   .form-container{
     width: 60%;
   }
