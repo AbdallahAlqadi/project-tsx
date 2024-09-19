@@ -1,12 +1,10 @@
-/* Ensure the html and body take full height */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #ffffff; /* Corrected background color syntax */
+  background-color: #ffffff; 
 }
 
-/* Ensure the root div (where your React app is mounted) also takes full height */
 #root {
   display: flex;
   flex-direction: column;
@@ -35,7 +33,7 @@ html, body {
   height: 80px;
   border: 1px solid #fffefe;
   border-radius: 50px;
-  margin-right: 20px; /* Add spacing to the right of the image */
+  margin-right: 20px; 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
