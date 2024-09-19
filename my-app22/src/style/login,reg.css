@@ -169,8 +169,8 @@ input {
 
 /* 575 */
 @media screen  and  (max-width: 575px) {
+  /* login and changepassword */
 
-  
   .form-container{
     width: 60%;
   }
@@ -201,6 +201,7 @@ zoom: 115%;
 /* 576-767 */
 @media screen and (min-width: 576px) and  (max-width: 767px) {
 
+  /* login and changepassword */
   .form-container{
     width: 60%;
   }
