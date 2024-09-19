@@ -257,8 +257,14 @@ tbody td {
 
 
 /* respnsive */
+@media screen and  (max-width: 575px) {
 
-@media screen and (min-width: 0px) and (max-width: 575px) {
+    
+    
+}
+
+
+@media screen and (min-width: 576px) and  (max-width: 767px) {
 
     
     

@@ -162,3 +162,46 @@ input {
   font-size: 16px;
   cursor: pointer;
 }
+
+
+
+/* respnsive */
+
+
+
+/* 575 */
+@media screen and (min-width: 0px) and  (max-width: 575px) {
+
+  .form-container{
+    width: 60%;
+  }
+
+  .change-password-button{
+    width: 60%;
+    margin-left: 2%;
+    font-size: small;
+  }
+
+.toggle-password-button{
+zoom: 115%;
+}
+
+.gridregchange{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.gridregchange .regbutton{
+  margin-top: 35%;
+  font-size: small;
+  margin-right: 25px;
+}
+
+    
+}
+
+
+@media screen and (min-width: 576px) and  (max-width: 767px) {
+
+    
+    
+}

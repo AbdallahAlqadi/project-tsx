@@ -111,7 +111,7 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
               <div className="form-group">
                 <label style={{ marginLeft: '20px' }} htmlFor="email">Email</label>
                 <input
-                  style={{ width: '533px', marginLeft: '20px' }}
+                  style={{ width: '88.5%', marginLeft: '3.5%' }}
                   type="email"
                   id="email"
                   name="email"
@@ -124,7 +124,7 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
                 <label style={{ marginLeft: '20px' }} htmlFor="password">Password</label>
                 <div className="password-input-container">
                   <input
-                    style={{ width: '553px', marginLeft: '20px' }}
+                    style={{ width: '85.5%', marginLeft: '20px' }}
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
@@ -139,6 +139,8 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
               </div>
               <button type="submit" className="submit-button">Login</button>
             </form>
+
+            <div className='gridregchange'>
             <button
               type="button"
               onClick={() => setShowPasswordChange(true)}
@@ -146,7 +148,8 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
             >
               Change Password
             </button>
-            <a style={{ marginLeft: '370px', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
+            <a className='regbutton' style={{ marginLeft: '58%', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
+            </div>
           </>
 
         )
