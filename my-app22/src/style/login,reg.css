@@ -217,4 +217,10 @@ zoom: 115%;
     font-size: small;
     margin-right: 40px;
   }
+
+  .change-password-button{
+    width: 50%;
+    margin-left: 2%;
+    font-size: small;
+  }
 }
