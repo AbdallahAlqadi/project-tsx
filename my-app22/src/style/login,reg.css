@@ -167,10 +167,8 @@ input {
 
 /* respnsive */
 
-
-
 /* 575 */
-@media screen and (min-width: 0px) and  (max-width: 575px) {
+@media screen  and  (max-width: 575px) {
 
   .form-container{
     width: 60%;
@@ -199,9 +197,11 @@ zoom: 115%;
     
 }
 
-
+/* 576-767 */
 @media screen and (min-width: 576px) and  (max-width: 767px) {
 
-    
+  .form-container{
+    width: 60%;
+  }
     
 }
