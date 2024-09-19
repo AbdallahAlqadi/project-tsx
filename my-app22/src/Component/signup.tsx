@@ -68,7 +68,7 @@ const RegisterForm: React.FC = () => {
         <form style={{ marginBottom: '8px' }} onSubmit={handleSubmit}>
           <div className="form-group">
             <label style={{ color: 'white' ,marginLeft:'20px',width:'533px'}} htmlFor="username">Username</label>
-            <input  style={{marginLeft:'20px',width:'533px'}}
+            <input  style={{marginLeft:'20px',width:'90%'}}
               type="text"
               id="username"
               name="username"
@@ -79,7 +79,7 @@ const RegisterForm: React.FC = () => {
           </div>
           <div className="form-group">
             <label style={{ color: 'white',width:'533px',marginLeft:'20px' }} htmlFor="email">Email</label>
-            <input style={{marginLeft:'20px',width:'533px'}}
+            <input style={{marginLeft:'20px',width:'90%'}}
               type="email"
               id="email"
               name="email"
@@ -90,7 +90,7 @@ const RegisterForm: React.FC = () => {
           </div>
           <div className="form-group">
             <label style={{ color: 'white' ,marginLeft:'20px'}} htmlFor="password">Password</label>
-            <input  style={{marginLeft:'20px',width:'533px'}}
+            <input  style={{marginLeft:'20px',width:'90%'}}
               type="password"
               id="password"
               name="password"
