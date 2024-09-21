@@ -262,102 +262,24 @@ tbody td {
 
 /* Mobile (portrait): 0px - 575px */
 /* Mobile (max-width: 575px) */
-/* Mobile (portrait): 0px - 575px */
-@media only screen and (max-width: 575px) {
-    /* Add styles for mobile portrait here */
-    .grid1 {
-      flex-direction: column;
-    }
-    .secssion1 {
-      margin-bottom: 20px;
-    }
-    .secssion2 {
-      margin-bottom: 20px;
-    }
-    .cards {
-      flex-direction: column;
-    }
-    .card {
-      margin-bottom: 20px;
-    }
-  }
-  
-  /* Mobile (landscape): 576px - 767px */
-  @media only screen and (min-width: 576px) and (max-width: 767px) {
-    /* Add styles for mobile landscape here */
-    .grid1 {
-      flex-direction: row;
-    }
-    .secssion1 {
-      margin-bottom: 0;
-    }
-    .secssion2 {
-      margin-bottom: 0;
-    }
-    .cards {
-      flex-direction: row;
-    }
-    .card {
-      margin-bottom: 0;
-    }
-  }
-  
-  /* Tablet: 768px - 991px */
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
-    /* Add styles for tablet here */
-    .grid1 {
-      flex-direction: row;
-    }
-    .secssion1 {
-      margin-bottom: 0;
-    }
-    .secssion2 {
-      margin-bottom: 0;
-    }
-    .cards {
-      flex-direction: row;
-    }
-    .card {
-      margin-bottom: 0;
-    }
-  }
-  
-  /* Laptop: 992px - 1199px */
-  @media only screen and (min-width: 992px) and (max-width: 1199px) {
-    /* Add styles for laptop here */
-    .grid1 {
-      flex-direction: row;
-    }
-    .secssion1 {
-      margin-bottom: 0;
-    }
-    .secssion2 {
-      margin-bottom: 0;
-    }
-    .cards {
-      flex-direction: row;
-    }
-    .card {
-      margin-bottom: 0;
-    }
-  }
-  
-  /* Desktop: 1200px and above */
-  @media only screen and (min-width: 1200px) {
-    /* Add styles for desktop here */
-    .grid1 {
-      flex-direction: row;
-    }
-    .secssion1 {
-      margin-bottom: 0;
-    }
-    .secssion2 {
-      margin-bottom: 0;
-    }
-    .cards {
-      flex-direction: row;
-    }
-    .card {
-      margin-bottom: 0;
-    }
-  }
+@media (max-width: 575px) {
+ 
+}
+
+
+/* Mobile (landscape): 576px - 767px */
+@media (min-width: 576px) and (max-width: 767px) {
+
+
+}
+
+/* Tablet: 768px - 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+
+
+}
+
+/* Laptop: 992px - 1199px */
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
