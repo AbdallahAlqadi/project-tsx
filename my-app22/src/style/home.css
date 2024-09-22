@@ -262,7 +262,7 @@ tbody td {
 
 /* Mobile (portrait): 0px - 575px */
 /* Mobile (max-width: 575px) */
-@media  (min-width: 0px) and (max-width: 575px) {
+@media (min-width: 0px) and (max-width: 575px) {
  
 
  
@@ -419,6 +419,12 @@ padding-right: 15%;
 /* Laptop: 992px - 1199px */
 @media (min-width: 992px) and (max-width: 1199px) {
     
+    #imgsec2{
+        width: 71%;
+        height: 62%;
+        margin-left: 15%;
+        margin-top: 27%;
+    }
      .secssion1{
         margin-top: 15%;
         margin-left: -61%;
@@ -440,8 +446,8 @@ padding-right: 15%;
     display: grid;
     grid-template-columns: auto auto;
     
-    margin-top:10%;
-    margin-left: 13%;
+    margin-top:3%;
+    margin-left: 14%;
     margin-bottom: 30%;
 
 }
