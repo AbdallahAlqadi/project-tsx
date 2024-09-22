@@ -364,7 +364,7 @@ padding-right: 15%;
 
     .secssion2{
         margin-top: -95%;
-        margin-left: 35%;
+        margin-left: 28%;
     }
 #imgsec2{
     width: 75%;
@@ -380,7 +380,10 @@ padding-right: 15%;
 
 }
 
-  
+#img3{
+    width: 85%;
+    height: 115%;
+ }
     .secssion3{
         margin-left: -122px;
         margin-bottom: 29%;
