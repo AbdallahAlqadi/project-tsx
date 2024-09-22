@@ -265,9 +265,72 @@ tbody td {
 @media (min-width: 0px) and (max-width: 575px) {
  
 
- 
 
+    .secssion1{
+        margin-top:20%;
+        margin-left: -10%;
+    }
+
+    .secssion2{
+        margin-top: -90%;
+        margin-left: 35%;
+        margin-bottom: 18%;
+    }
+
+#imgsec2{
+    width: 70%;
+    height: 49%;
+    margin-left: 10%;
 }
+
+.secssion3{
+    margin-left: -38%;
+}
+.secssion4{
+    margin-left: -34%;
+}
+.grid1{
+    display: grid;
+    grid-template-columns: auto;
+    margin-top: 30%;
+}
+.grid2{
+    display: grid;
+    grid-template-columns: auto;
+}
+.cards{
+    display: grid;
+    grid-template-columns: auto;
+    margin-left: 29%;
+}
+.tablefather{
+    padding-right: 20%;
+}
+#img3{
+    width: 90%;
+    height: 90%;
+}
+
+#imgcard{
+    width: 200px;
+    height: 195px;
+}
+
+#imgcard2 {
+    width: 195px;
+    height: 195px;
+    
+}
+
+#card{
+    width: 235px;
+    height: 370px;
+    padding-bottom: 3%;
+}
+}
+
+
+
 
 /* //DONE */
 /* Mobile (landscape): 576px - 767px */
