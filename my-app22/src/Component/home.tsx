@@ -785,7 +785,7 @@ const cartItemStyle = css`
       </table>
       </div>
 
-     {/* حاض بعرض المسجات في اسفل الصفحه */}
+     {/*  بعرض المسجات في اسفل الصفحه*/}
       <Snackbar open={Boolean(message)} autoHideDuration={2000} onClose={() => setMessage(null)}>
         <Alert onClose={() => setMessage(null)} severity="info" sx={{ width: '100%' }}>
           {message}
