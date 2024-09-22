@@ -269,7 +269,7 @@ tbody td {
 
 }
 
-
+/* //DONE */
 /* Mobile (landscape): 576px - 767px */
 @media (min-width: 576px) and (max-width: 767px) {
 
@@ -352,7 +352,7 @@ padding-right: 15%;
 
 
 
-
+/* DONE */
 /* Tablet: 768px - 991px */
 @media (min-width: 768px) and (max-width: 991px) {
 
@@ -419,4 +419,66 @@ padding-right: 15%;
 /* Laptop: 992px - 1199px */
 @media (min-width: 992px) and (max-width: 1199px) {
     
+     .secssion1{
+        margin-top: 15%;
+        margin-left: -61%;
+
+    }
+
+    .secssion2{
+        margin-top: -60%;
+        margin-left: 37%;
+    } */
+#imgsec2{
+    width: 45%;
+    height: 50%;
+    margin-top: -10%;
+   
+}
+
+.grid1{
+    display: grid;
+    grid-template-columns: auto auto;
+    
+    margin-top:10%;
+    margin-left: 13%;
+    margin-bottom: 30%;
+
+}
+
+#img3{
+    width: 75%;
+    height: 100%;
+    margin-left: 7%;
+ }
+    .secssion3{
+        margin-left: -122px;
+        margin-bottom: 29%;
+        }
+        
+        .secssion4{
+            margin-left: 4%;
+            font-size: xX-large;
+        }
+    
+.cards{
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-left: 15%;
+}
+
+
+.grid1{
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.grid2{
+    display: grid;
+    grid-template-columns: auto;
+
+}
+.tablefather{
+    padding-right: 8%;
+}
 }
