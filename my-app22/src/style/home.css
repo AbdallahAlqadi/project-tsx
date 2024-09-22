@@ -264,6 +264,9 @@ tbody td {
 /* Mobile (max-width: 575px) */
 @media (max-width: 575px) {
  
+
+ 
+
 }
 
 
@@ -301,7 +304,7 @@ tbody td {
 .cards{
     display: grid;
     grid-template-columns:  auto auto;
-    margin-left: 6%;
+    margin-left: 7.5%;
 }
 
  #img3{
@@ -353,7 +356,35 @@ padding-right: 15%;
 /* Tablet: 768px - 991px */
 @media (min-width: 768px) and (max-width: 991px) {
 
+    .secssion3{
+        margin-left: -122px;
+        margin-bottom: 29%;
+        }
+        
+        .secssion4{
+            margin-left: -17%;
+            font-size: x-large;
+        }
+    
+.cards{
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-left: 6%;
+}
 
+.grid1{
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.grid2{
+    display: grid;
+    grid-template-columns: auto;
+
+}
+.tablefather{
+    padding-right: 8%;
+}
 }
 
 /* Laptop: 992px - 1199px */
