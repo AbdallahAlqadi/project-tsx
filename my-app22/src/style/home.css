@@ -369,8 +369,9 @@ padding-right: 15%;
 .cards{
     display: grid;
     grid-template-columns: auto auto;
-    margin-left: 6%;
+    margin-left: 9%;
 }
+
 
 .grid1{
     display: grid;
