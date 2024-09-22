@@ -26,6 +26,7 @@ import z5 from '../img/z5.jpeg';
 import z8 from '../img/z8.jpeg';
 import z7 from '../img/z7.jpeg';
 import z9 from '../img/z9.jpeg';
+import InputAdornment from '@mui/material/InputAdornment';
 
 // يمثل تفاصيل كل عنصر
 interface Item {
@@ -65,6 +66,8 @@ const validationSchema = yup.object({
     .required('CVV is required')
     .matches(/^[0-9]{3}$/, 'CVV is not valid'), // يحقق أن CVV يحتوي على 3 أرقام
 });
+
+
 
 
 // بحتوي على نوع العمليات يلي بتصير داخل السلله
@@ -364,8 +367,8 @@ const cartItemStyle = css`
     color: 'green',
     backgroundColor: 'white',
     border: '1px solid green',
-    width: '250px',
-    marginLeft: '25px',
+    width: '80%',
+    marginLeft: '9.5%',
     '&:hover': {
       backgroundColor: 'green', 
       color: 'white', 
@@ -404,8 +407,8 @@ const cartItemStyle = css`
     color: 'green',
     backgroundColor: 'white',
     border: '1px solid green',
-    width: '250px',
-    marginLeft: '25px',
+  width: '80%',
+    marginLeft: '9.5%',
     '&:hover': {
       backgroundColor: 'green',
       color: 'white',
@@ -497,11 +500,54 @@ const cartItemStyle = css`
           </Button>
 
           {/* والسعر بعد الخصم معلومات المجموع وكميه الخصم */}
-          <div style={{ marginBottom: '16px' }}>
-            <h3>Total Amount: {cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0).toFixed(2)} JD</h3>
-            <h3>Discount Amount: {discountAmount.toFixed(2)} JD</h3>
-            <h3>Final Amount: {(cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0) - discountAmount).toFixed(2)} JD</h3>
-          </div>
+          <div style={{
+    padding: '16px', 
+    borderRadius: '8px', 
+    backgroundColor: '#f9f9f9', 
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4)', 
+    marginBottom: '16px'
+}}>
+  {/* عرض المبلغ الكلي */}
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    padding: '12px 0', 
+    borderBottom: '1px solid #ddd'
+  }}>
+    <h3 style={{ margin: 0, color: '#333' }}>Total Amount:</h3>
+    <p style={{ margin: 0, fontWeight: 'bold', color: '#333' }}>
+      {cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0).toFixed(2)} JD
+    </p>
+  </div>
+
+  {/* عرض الخصم */}
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    padding: '12px 0', 
+    borderBottom: '1px solid #ddd'
+  }}>
+    <h3 style={{ margin: 0, color: '#333' }}>Discount Amount:</h3>
+    <p style={{ margin: 0, fontWeight: 'bold', color: '#d9534f' }}>
+      {discountAmount.toFixed(2)} JD
+    </p>
+  </div>
+
+  {/* عرض المبلغ النهائي */}
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    padding: '12px 0'
+  }}>
+    <h3 style={{ margin: 0, fontWeight: 'bold', color: '#28a745' }}>Final Amount:</h3>
+    <p style={{ margin: 0, fontWeight: 'bold', color: '#28a745' }}>
+      {(cart.reduce((total, item) => total + parseFloat(item.price.replace('JD', '')) * (item.quantity ?? 1), 0) - discountAmount).toFixed(2)} JD
+    </p>
+  </div>
+</div>
 
           {/* كبسه place order */}
           <Button
@@ -539,85 +585,135 @@ const cartItemStyle = css`
 
 {/* payment */}
 <Modal
-// بحدد ااذا السله فاتحه ام لا
-        open={isPaymentModalOpen}
-        // تستدعى عند اغلاق جزئيه الدفع
-        onClose={() => setIsPaymentModalOpen(false)}
-        aria-labelledby="modal-payment-title"
-        aria-describedby="modal-payment-description"
+  open={isPaymentModalOpen}
+  onClose={() => setIsPaymentModalOpen(false)}
+  aria-labelledby="modal-payment-title"
+  aria-describedby="modal-payment-description"
+>
+  {/* تصميم المودال */}
+  <Box 
+    sx={{
+      ...paymentModalStyle,
+      padding: '24px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+      position: 'relative',
+      backgroundColor: '#fff'
+    }}
+  >
+    {/* أيقونة الإغلاق */}
+    <IconButton
+      onClick={() => setIsPaymentModalOpen(false)}
+      sx={{ position: 'absolute', top: 8, right: 8 }}
+    >
+      <CloseIcon />
+    </IconButton>
+
+    <h2 id="modal-payment-title" style={{ marginBottom: '16px', textAlign: 'center', fontSize: '24px', color: '#333' }}>
+      Payment Information
+    </h2>
+
+    {/* نموذج الدفع */}
+    <form onSubmit={formik.handleSubmit}>
+      
+      {/* حقل رقم البطاقة */}
+      <TextField
+  fullWidth
+  id="cardNumber"
+  name="cardNumber"
+  label="Card Number"
+  placeholder="Enter your card number"
+  value={formik.values.cardNumber}
+  onChange={formik.handleChange}
+  error={formik.touched.cardNumber && Boolean(formik.errors.cardNumber)}
+  helperText={formik.touched.cardNumber && formik.errors.cardNumber}
+  margin="normal"
+  inputProps={{ maxLength: 19 }} // مع الأخذ بعين الاعتبار الفراغات
+  onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+    // إضافة فراغ بعد كل 4 أرقام
+    e.target.value = e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+  }}
+  sx={{
+    '& input': { fontSize: '16px', padding: '12px' },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'gray', // لون حدود الحقل
+      },
+      '&:hover fieldset': {
+        borderColor: 'blue', // لون الحدود عند التمرير
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'green', // لون الحدود عند التركيز
+      },
+    },
+  }}
+  InputProps={{
+    startAdornment: <InputAdornment position="start">💳</InputAdornment>, // أيقونة في البداية
+  }}
+/>
+
+
+      {/* حقل تاريخ الانتهاء */}
+      <TextField
+        fullWidth
+        id="expiryDate"
+        name="expiryDate"
+        label="Expiry Date (MM/YY)"
+        value={formik.values.expiryDate}
+        onChange={formik.handleChange}
+        error={formik.touched.expiryDate && Boolean(formik.errors.expiryDate)}
+        helperText={formik.touched.expiryDate && formik.errors.expiryDate}
+        margin="normal"
+        inputProps={{ maxLength: 5 }}
+        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+          // إضافة "/" بعد أول رقمين
+          e.target.value = e.target.value.replace(/^(\d{2})(\d{0,2})/, '$1/$2');
+        }}
+        sx={{
+          '& input': { fontSize: '16px', padding: '12px' }
+        }}
+      />
+
+      {/* حقل CVV */}
+      <TextField
+        fullWidth
+        id="cvv"
+        name="cvv"
+        label="CVV"
+        value={formik.values.cvv}
+        onChange={formik.handleChange}
+        error={formik.touched.cvv && Boolean(formik.errors.cvv)}
+        helperText={formik.touched.cvv && formik.errors.cvv}
+        margin="normal"
+        inputProps={{ maxLength: 3 }}
+        sx={{
+          '& input': { fontSize: '16px', padding: '12px' }
+        }}
+      />
+
+      {/* زر تأكيد الدفع */}
+      <Button
+        color="primary"
+        variant="contained"
+        fullWidth
+        type="submit"
+        style={{
+          marginTop: '24px',
+          padding: '12px',
+          fontSize: '18px',
+          backgroundColor: '#28a745',
+          borderRadius: '8px',
+          transition: 'background-color 0.3s ease'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#218838'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#28a745'}
       >
-        {/* مسج الدفع */}
-        <Box sx={paymentModalStyle}>
-          
-          {/* ايقونه الاغلاق */}
-          <IconButton
-            onClick={() => setIsPaymentModalOpen(false)}
-            sx={{ position: 'absolute', top: 8, right: 8 }}
-          >
-            <CloseIcon />
-          </IconButton>
+        Confirm Payment
+      </Button>
+    </form>
+  </Box>
+</Modal>
 
-
-          <h2 id="modal-payment-title">Payment Information</h2>
-
-          <form onSubmit={formik.handleSubmit}>
-            {/* input: Card number */}
-            <TextField
-              fullWidth
-              id="cardNumber"
-              name="cardNumber"
-              label="Card Number"
-              value={formik.values.cardNumber}
-              onChange={formik.handleChange}
-              error={formik.touched.cardNumber && Boolean(formik.errors.cardNumber)}
-              helperText={formik.touched.cardNumber && formik.errors.cardNumber}
-              margin="normal"
-              inputProps={{ maxLength: 19 }} // Adjust as needed for formatting
-              onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-                // Add space after every 4 digits
-                e.target.value = e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
-              }}
-            />
-
-
-       {/* input: Date */}
-            <TextField
-              fullWidth
-              id="expiryDate"
-              name="expiryDate"
-              label="Expiry Date (MM/YY)"
-              value={formik.values.expiryDate}
-              onChange={formik.handleChange}
-              error={formik.touched.expiryDate && Boolean(formik.errors.expiryDate)}
-              helperText={formik.touched.expiryDate && formik.errors.expiryDate}
-              margin="normal"
-              inputProps={{ maxLength: 5 }} // Adjust as needed for formatting
-              onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-                // Add slash after first 2 digits
-                e.target.value = e.target.value.replace(/^(\d{2})(\d{0,2})/, '$1/$2');
-              }}
-            />
-
-           {/* input: cvv */}
-            <TextField
-              fullWidth
-              id="cvv"
-              name="cvv"
-              label="CVV"
-              value={formik.values.cvv}
-              onChange={formik.handleChange}
-              error={formik.touched.cvv && Boolean(formik.errors.cvv)}
-              helperText={formik.touched.cvv && formik.errors.cvv}
-              margin="normal"
-              inputProps={{ maxLength: 3 }}
-            />
-            {/* كبسه تاكيد الدفع */}
-            <Button color="primary" variant="contained" fullWidth type="submit" style={{ marginTop: '16px' }}>
-              Confirm Payment
-            </Button>
-          </form>
-        </Box>
-      </Modal>
 
 
      {/* ايقون السله*/}
@@ -654,6 +750,7 @@ const cartItemStyle = css`
 {/* جزئيه table */}
       {/* Order History */}
       <h2  style={{color:"#008B8B"}}>Order History</h2>
+      <div className="tablefather">
       <table className="table" id="order-history-table" style={{ width: '90%', borderCollapse: 'collapse',marginLeft:'70px',"marginBottom":'150px'}}>
         <thead>
           <tr>
@@ -686,6 +783,7 @@ const cartItemStyle = css`
           )}
         </tbody>
       </table>
+      </div>
 
      {/* حاض بعرض المسجات في اسفل الصفحه */}
       <Snackbar open={Boolean(message)} autoHideDuration={2000} onClose={() => setMessage(null)}>
