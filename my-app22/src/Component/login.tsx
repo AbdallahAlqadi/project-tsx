@@ -8,6 +8,7 @@ interface FormData {
   email: string;
   password: string;
 }
+
 // بتحدد شكل البيانات الموجوده في localStorage
 interface StoredData {
   email: string;
@@ -19,20 +20,20 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
   const [formData, setFormData] = useState<FormData>({ email: '', password: '' });
   // يتم تخزين الباسورد الجديد
   const [newPassword, setNewPassword] = useState<string>('');
-    // يتم تخزين الباسورد القديم
+  // يتم تخزين الباسورد القديم
   const [oldPassword, setOldPassword] = useState<string>('');
   // بتتحكم بظهور  شاشه login or changepassword
   const [showPasswordChange, setShowPasswordChange] = useState<boolean>(false);
-    // بتتحكم بظهور واخفاء الباسورد
+  // بتتحكم بظهور واخفاء الباسورد
   const [showPassword, setShowPassword] = useState<boolean>(false);
-      // بتتحكم بظهور واخفاء الباسورد
+  // بتتحكم بظهور واخفاء الباسورد
   const [showOldPassword, setShowOldPassword] = useState<boolean>(false);
-      // بتتحكم بظهور واخفاء الباسورد
+  // بتتحكم بظهور واخفاء الباسورد
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
   // لتغير المسج
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [failedAttempts, setFailedAttempts] = useState<number>(0); // عدد المحاولات الفاشلة
   const navigate = useNavigate();
-
 
   // بتحكم بوقت اخفاء MessageAlert
   useEffect(() => {
@@ -44,7 +45,6 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
     }
   }, [alertMessage]);
 
-
   // مسؤوله عن تغير القيم داخل input
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,13 +55,21 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
     // بقارن اذا القيمه المدخله موجوده ب localstorge
     const users: StoredData[] = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find(u => u.email === formData.email && u.password === formData.password);
+    
     if (user) {
       localStorage.setItem('isLoggedIn', 'true');
       setIsLoggedIn(true);
+      setFailedAttempts(0); // إعادة تعيين المحاولات الفاشلة إلى 0
       navigate('/home');
     } else {
-      
-      setAlertMessage('Invalid email or password');
+      setFailedAttempts(prev => prev + 1); // زيادة عدد المحاولات الفاشلة
+
+      if (failedAttempts >= 2) {
+        setAlertMessage('You have entered the wrong password 3 times.');
+        setFailedAttempts(0); // إعادة تعيين المحاولات الفاشلة بعد 3 محاولات
+      } else {
+        setAlertMessage('Invalid email or password');
+      }
     }
   };
 
@@ -77,7 +85,7 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
     const users: StoredData[] = JSON.parse(localStorage.getItem('users') || '[]');
     // البحث عن المستخدم بناءً على الإيميل وكلمة المرور القديمة
     const userIndex = users.findIndex(u => u.email === formData.email && u.password === oldPassword);
-    // إذا تم العثور على المستخدم 
+    // إذا تم العثور على المستخدم
     if (userIndex !== -1) {
       users[userIndex].password = newPassword;
       localStorage.setItem('users', JSON.stringify(users));
@@ -87,7 +95,7 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
       setShowPasswordChange(false);
       
     } 
-    // إذا لم يتم العثور على المستخدم 
+    // إذا لم يتم العثور على المستخدم
     else {
       setAlertMessage('Old password is incorrect');
     }
@@ -141,19 +149,17 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
             </form>
 
             <div className='gridregchange'>
-            <button
-              type="button"
-              onClick={() => setShowPasswordChange(true)}
-              className="change-password-button"
-            >
-              Change Password
-            </button>
-            <a className='regbutton' style={{ marginLeft: '58%', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
+              <button
+                type="button"
+                onClick={() => setShowPasswordChange(true)}
+                className="change-password-button"
+              >
+                Change Password
+              </button>
+              <a className='regbutton' style={{ marginLeft: '58%', cursor: 'pointer' }} onClick={() => { navigate('/signup') }}>Register</a>
             </div>
           </>
-
-        )
-         : (
+        ) : (
           <>
             <h3 style={{ marginLeft: '20px', marginTop: '55px', marginBottom: '16px' }}>Change Password</h3>
             <form onSubmit={handlePasswordChange} className="change-password-form">
