@@ -356,6 +356,31 @@ padding-right: 15%;
 /* Tablet: 768px - 991px */
 @media (min-width: 768px) and (max-width: 991px) {
 
+
+    .secssion1{
+        margin-top: 30%;
+        margin-left: -1%;
+    }
+
+    .secssion2{
+        margin-top: -95%;
+        margin-left: 35%;
+    }
+#imgsec2{
+    width: 75%;
+    height: 49%;
+    margin-left: 11%;
+}
+
+.grid1{
+    display: grid;
+    grid-template-columns: auto;
+    margin-bottom: 25%;
+    margin-top:43%;
+
+}
+
+  
     .secssion3{
         margin-left: -122px;
         margin-bottom: 29%;
