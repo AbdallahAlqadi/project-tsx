@@ -364,7 +364,7 @@ const cartItemStyle = css`
     <Button 
   variant="contained" 
   sx={{
-    color: 'green',
+  color: 'green',
     backgroundColor: 'white',
     border: '1px solid green',
     width: '80%',
