@@ -262,7 +262,7 @@ tbody td {
 
 /* Mobile (portrait): 0px - 575px */
 /* Mobile (max-width: 575px) */
-@media (max-width: 575px) {
+@media  (min-width: 0px) and (max-width: 575px) {
  
 
  
