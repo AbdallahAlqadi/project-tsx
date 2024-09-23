@@ -631,7 +631,7 @@ const cartItemStyle = css`
   inputProps={{ maxLength: 19 }} // مع الأخذ بعين الاعتبار الفراغات
   onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
     // إضافة فراغ بعد كل 4 أرقام
-    e.target.value = e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+    e.target.value = e.target.value.replace(/\s?/g, '').trim();
   }}
   sx={{
     '& input': { fontSize: '16px', padding: '12px' },
