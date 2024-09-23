@@ -181,7 +181,7 @@ const Home: React.FC = () => {
   const addToCart = (item: Item) => {
     //اذا ما في اي حساب بطبع هاي الجمله
     if (!isLoggedIn) {
-      alert('Please log in to add items to your cart.');
+      setMessage('Please log in to add items to your cart.');
       return;
     }
     //غير هيك بضيف على السله
