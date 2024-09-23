@@ -655,24 +655,27 @@ const cartItemStyle = css`
 
       {/* حقل تاريخ الانتهاء */}
       <TextField
-        fullWidth
-        id="expiryDate"
-        name="expiryDate"
-        label="Expiry Date (MM/YY)"
-        value={formik.values.expiryDate}
-        onChange={formik.handleChange}
-        error={formik.touched.expiryDate && Boolean(formik.errors.expiryDate)}
-        helperText={formik.touched.expiryDate && formik.errors.expiryDate}
-        margin="normal"
-        inputProps={{ maxLength: 5 }}
-        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-          // إضافة "/" بعد أول رقمين
-          e.target.value = e.target.value.replace(/^(\d{2})(\d{0,2})/, '$1/$2');
-        }}
-        sx={{
-          '& input': { fontSize: '16px', padding: '12px' }
-        }}
-      />
+  fullWidth
+  id="expiryDate"
+  name="expiryDate"
+  label="Expiry Date (MM/YY)"
+  value={formik.values.expiryDate}
+  onChange={formik.handleChange}
+  error={formik.touched.expiryDate && Boolean(formik.errors.expiryDate)}
+  helperText={formik.touched.expiryDate && formik.errors.expiryDate}
+  margin="normal"
+  inputProps={{ maxLength: 5, inputMode: 'numeric', pattern: '[0-9/]*' }}
+  onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+    // التأكد من إدخال الفاصل "/" بعد أول رقمين وعدم إضافة مسافات زائدة
+    e.target.value = e.target.value
+      .replace(/\D/g, '') // إزالة أي أحرف غير الأرقام
+      .replace(/^(\d{2})(\d{0,2})/, '$1/$2') // إضافة "/" بعد أول رقمين
+      .slice(0, 5); // تحديد الحد الأقصى للإدخال بـ 5 أحرف
+  }}
+  sx={{
+    '& input': { fontSize: '16px', padding: '12px' }
+  }}
+/>
 
       {/* حقل CVV */}
       <TextField
