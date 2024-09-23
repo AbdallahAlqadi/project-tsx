@@ -268,7 +268,8 @@ tbody td {
 
     .secssion1{
         margin-top:20%;
-        margin-left: -10%;
+
+font-size: large;        margin-left: -10%;
     }
 
     .secssion2{
@@ -367,7 +368,7 @@ tbody td {
 .cards{
     display: grid;
     grid-template-columns:  auto auto;
-    margin-left: 7.5%;
+    margin-left: 9%;
 }
 
  #img3{
