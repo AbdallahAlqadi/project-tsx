@@ -64,7 +64,7 @@ const LoginForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<b
     } else {
       setFailedAttempts(prev => prev + 1); // زيادة عدد المحاولات الفاشلة
 
-      if (failedAttempts >= 2) {
+      if (failedAttempts >= 3) {
         setAlertMessage('You have entered the wrong password 3 times.');
         setFailedAttempts(0); // إعادة تعيين المحاولات الفاشلة بعد 3 محاولات
       } else {
