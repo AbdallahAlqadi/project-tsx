@@ -789,11 +789,12 @@ const cartItemStyle = css`
       </div>
 
      {/*  بعرض المسجات في اسفل الصفحه*/}
-      <Snackbar open={Boolean(message)} autoHideDuration={2000} onClose={() => setMessage(null)}>
-        <Alert onClose={() => setMessage(null)} severity="info" sx={{ width: '100%' }}>
-          {message}
-        </Alert>
-      </Snackbar>
+     <Snackbar open={Boolean(message)} autoHideDuration={2000} onClose={() => setMessage(null)} >
+  <Alert onClose={() => setMessage(null)} severity="error" sx={{ width: '100%' }}>
+    {message}
+  </Alert>
+</Snackbar>
+
 
 
 
